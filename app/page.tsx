@@ -5,7 +5,7 @@ import { ChevronRight } from "lucide-react";
 export default function Home() {
     return (
         <div className="h-screen bg-background font-sans flex items-center justify-center p-8 overflow-hidden">
-            <div className="flex gap-4 h-[90dvh] w-full">
+            <div className="flex gap-4 h-[95dvh] w-full">
                 {/* Left Side - Hero Image */}
                 <div
                     className="relative bg-primary p-6 lg:p-8 flex flex-col justify-between rounded-3xl w-2/5 overflow-hidden border border-border/50">
