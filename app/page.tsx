@@ -1,12 +1,14 @@
 import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { ChevronRight } from "lucide-react";
 
 export default function Home() {
     return (
-        <div className="h-screen bg-[#fafafa] font-sans flex items-center justify-center p-8 overflow-hidden">
+        <div className="h-screen bg-background font-sans flex items-center justify-center p-8 overflow-hidden">
             <div className="flex gap-4 h-[90dvh] w-full">
                 {/* Left Side - Hero Image */}
                 <div
-                    className="relative bg-[#1a1a1a] p-6 lg:p-8 flex flex-col justify-between rounded-3xl w-2/5 overflow-hidden border border-border/50">
+                    className="relative bg-primary p-6 lg:p-8 flex flex-col justify-between rounded-3xl w-2/5 overflow-hidden border border-border/50">
                     {/* Background Image */}
                     <div className="absolute inset-0">
                         <Image
@@ -38,7 +40,7 @@ export default function Home() {
                 <div
                     className="p-8 flex flex-col justify-between bg-white rounded-3xl overflow-y-auto w-3/5 border border-border/50">
                     <div className="max-w-2xl">
-                        <h1 className="text-3xl lg:text-4xl font-semibold text-foreground mb-8 leading-tight">
+                        <h1 className="text-3xl lg:text-4xl font-serif font-semibold text-foreground mb-8 leading-tight">
                             Connection deserves a seat.
                         </h1>
 
@@ -66,23 +68,10 @@ export default function Home() {
 
                         {/* CTA Button */}
                         <div className="mt-12">
-                            <button
-                                className="bg-black hover:bg-black/90 transition-all text-white rounded-full py-3 px-6 flex items-center gap-3 group font-medium cursor-pointer">
-                                <span className="text-sm">Join us at the Table</span>
-                                <svg
-                                    className="w-5 h-5 transform group-hover:translate-x-1 transition-transform"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth={2}
-                                        d="M9 5l7 7-7 7"
-                                    />
-                                </svg>
-                            </button>
+                            <Button size="lg">
+                                Join us at the Table
+                                <ChevronRight className="w-5 h-5" />
+                            </Button>
                         </div>
                     </div>
 

@@ -1,21 +1,17 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
+import { Inter, Crimson_Pro } from "next/font/google";
 import "./globals.css";
 
-const gothaPro = localFont({
-  src: [
-    {
-      path: "../font/GothaProReg.otf",
-      weight: "400",
-      style: "normal",
-    },
-    {
-      path: "../font/GothaProMed.otf",
-      weight: "500",
-      style: "normal",
-    },
-  ],
-  variable: "--font-gotha-pro",
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
+const crimsonPro = Crimson_Pro({
+  subsets: ["latin"],
+  variable: "--font-crimson-pro",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -31,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${gothaPro.variable} antialiased`}
+        className={`${inter.variable} ${crimsonPro.variable} antialiased`}
       >
         {children}
       </body>
