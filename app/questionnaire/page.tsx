@@ -428,7 +428,6 @@ export default function QuestionnairePage() {
                 </Button>
               </div>
             </div>
-
           </div>
         </div>
       </div>
