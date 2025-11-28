@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ChevronRight } from "lucide-react";
 
@@ -24,15 +25,17 @@ export default function Home() {
 
                     {/* Logo */}
                     <div className="flex items-start relative z-10">
-                        <div
-                            className="w-14 h-14 bg-white/10 backdrop-blur-sm rounded-2xl flex items-center justify-center border border-white/20">
-                            <Image
-                                src="/logo.png"
-                                alt="The Table Logo"
-                                width={24}
-                                height={24}
-                            />
-                        </div>
+                        <Link href="/">
+                            <div
+                                className="w-14 h-14 bg-white/10 backdrop-blur-sm rounded-2xl flex items-center justify-center border border-white/20 cursor-pointer hover:bg-white/20 transition-colors">
+                                <Image
+                                    src="/logo.png"
+                                    alt="The Table Logo"
+                                    width={24}
+                                    height={24}
+                                />
+                            </div>
+                        </Link>
                     </div>
                 </div>
 
@@ -68,9 +71,11 @@ export default function Home() {
 
                         {/* CTA Button */}
                         <div className="mt-12">
-                            <Button size="lg">
-                                Join us at the Table
-                                <ChevronRight className="w-5 h-5" />
+                            <Button size="lg" asChild>
+                                <Link href="/questionnaire">
+                                    Join us at the Table
+                                    <ChevronRight className="w-5 h-5" />
+                                </Link>
                             </Button>
                         </div>
                     </div>
