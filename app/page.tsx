@@ -41,7 +41,7 @@ export default function Home() {
                                         size="sm"
                                         className="text-muted-foreground hover:text-foreground"
                                     >
-                                        What is Required?
+                                        What is Required
                                     </Button>
                                     <Button
                                         variant="ghost"
@@ -49,7 +49,8 @@ export default function Home() {
                                         className="text-muted-foreground hover:text-foreground"
                                         asChild
                                     >
-                                        <Link href="/#pricing">Why We Gather</Link>
+                                        <Link href="/#pricing">
+                                            Our Philosophy</Link>
                                     </Button>
                                 </nav>
                                 <div className="mx-3 h-4 w-px bg-black/10 dark:bg-white/10"></div>
@@ -179,7 +180,7 @@ export default function Home() {
                                         className="h-px w-12 bg-linear-to-r from-transparent to-black/10 dark:to-white/10"></div>
                                     <div
                                         className="flex items-center gap-2 rounded-lg border border-black/5 bg-black/2 px-3 py-1.5 dark:border-white/10 dark:bg-white/5">
-                                        <span className="font-medium text-black/60 text-xs dark:text-white/60">What is Required?</span>
+                                        <span className="font-medium text-black/60 text-xs dark:text-white/60">What is Required</span>
                                     </div>
                                     <div
                                         className="h-px w-12 bg-linear-to-l from-transparent to-black/10 dark:to-white/10"></div>
@@ -281,94 +282,104 @@ export default function Home() {
             <footer className="w-full overflow-hidden bg-white py-12 md:py-16 dark:bg-black/3">
                 <div className="container mx-auto px-4 md:px-6">
                     <div
-                        className="mx-auto max-w-7xl rounded-2xl border border-black/5 border-dashed p-2 dark:border-white/10">
-                        <div
-                            className="rounded-xl border border-black/5 bg-black/3 p-6 md:p-8 dark:border-white/10 dark:bg-white/10">
-                            <div className='grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4'>
-                                <div className="space-y-3 lg:col-span-2"><Link
+                        className="rounded-xl border border-black/5 bg-black/3 p-6 md:p-8 dark:border-white/10 dark:bg-white/10">
+                        <div className='grid grid-cols-1 gap-8 md:grid-cols-3'>
+                            <div className="space-y-3">
+                                <Link
                                     className="inline-block font-semibold text-2xl text-black/80 tracking-tighter transition-opacity hover:opacity-80 dark:text-white/80"
-                                    href="/">
-                                <span
-                                    className="font-bold text-2xl text-black tracking-tighter transition-colors dark:text-white">The Table App</span></Link>
-                                    <p className="max-w-xs text-black/60 text-sm tracking-tighter dark:text-white/60">Where
-                                        every dinner is an introduction.</p></div>
-                                <div className="space-y-4">
-                                    <h3 className="font-medium text-black/80 text-sm tracking-tighter dark:text-white/80">
-                                        Download the Table App
-                                    </h3>
-                                    <div className="flex flex-wrap gap-3">
-                                        <Button
-                                            asChild
-                                            size="sm"
+                                    href="/"
+                                >
+                                        <span className="font-bold text-2xl text-black tracking-tighter transition-colors dark:text-white">
+                                            The Table App
+                                        </span>
+                                </Link>
+                                <p className="max-w-xs text-black/60 text-sm tracking-tighter dark:text-white/60">
+                                    Where every dinner is an introduction.
+                                </p>
+                            </div>
+                            <div className="space-y-4">
+                                <h3 className="font-medium text-black/80 text-sm tracking-tighter dark:text-white/80">
+                                    Download the Table App
+                                </h3>
+                                <div className="flex flex-wrap gap-3">
+                                    <Button
+                                        asChild
+                                        size="sm"
+                                    >
+                                        <a
+                                            href="https://apps.apple.com/app/the-table-app/id6752313205"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
                                         >
-                                            <a
-                                                href="https://apps.apple.com/app/the-table-app/id6752313205"
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                            >
-                                                <svg className="size-5" viewBox="0 0 24 24" fill="currentColor">
-                                                    <path
-                                                        d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
-                                                </svg>
-                                                App Store
-                                            </a>
-                                        </Button>
-                                        <Button
-                                            asChild
-                                            size="sm"
-                                        >
-                                            <a href="#">
-                                                <svg className="size-5" viewBox="0 0 24 24" fill="currentColor">
-                                                    <path
-                                                        d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/>
-                                                </svg>
-                                                Google Play
-                                            </a>
-                                        </Button>
-                                    </div>
-                                </div>
-
-                                <div className="space-y-4">
-                                    <h3 className="font-medium text-black/80 text-sm tracking-tighter dark:text-white/80">
-                                        Follow us
-                                    </h3>
-                                    <div className="flex flex-wrap gap-3">
-                                        <Button
-                                            asChild
-                                            size="icon"
-                                        >
-                                            <a href="#" aria-label="LinkedIn">
-                                                <svg className="size-5" viewBox="0 0 24 24" fill="currentColor">
-                                                    <path
-                                                        d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                                                </svg>
-                                            </a>
-                                        </Button>
-                                        <Button
-                                            asChild
-                                            size="icon"
-                                        >
-                                            <a href="#" aria-label="Instagram">
-                                                <svg className="size-5" viewBox="0 0 24 24" fill="currentColor">
-                                                    <path
-                                                        d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                                                </svg>
-                                            </a>
-                                        </Button>
-                                    </div>
+                                            <svg className="size-5" viewBox="0 0 24 24" fill="currentColor">
+                                                <path
+                                                    d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
+                                            </svg>
+                                            App Store
+                                        </a>
+                                    </Button>
+                                    <Button
+                                        asChild
+                                        size="sm"
+                                    >
+                                        <a href="#">
+                                            <svg className="size-5" viewBox="0 0 24 24" fill="currentColor">
+                                                <path
+                                                    d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/>
+                                            </svg>
+                                            Google Play
+                                        </a>
+                                    </Button>
                                 </div>
                             </div>
 
-
-                            <div
-                                className="mt-8 flex flex-col justify-between gap-3 border-black/5 border-t pt-6 text-black/50 text-xs tracking-tighter sm:flex-row sm:items-center dark:border-white/10 dark:text-white/50">
-                                <p>© 2026 The Table App Ltd. All rights reserved.</p>
-                                <div className="flex gap-4"><a
-                                    className="transition-colors hover:text-black/70 dark:hover:text-white/70"
-                                    href="#">Terms</a><a
-                                    className="transition-colors hover:text-black/70 dark:hover:text-white/70"
-                                    href="/privacy">Privacy</a>
+                            <div className="space-y-4">
+                                <h3 className="font-medium text-black/80 text-sm tracking-tighter dark:text-white/80">
+                                    Follow us
+                                </h3>
+                                <div className="flex flex-wrap gap-3">
+                                    <Button
+                                        asChild
+                                        size="icon"
+                                    >
+                                        <a href="#" aria-label="LinkedIn">
+                                            <svg className="size-5" viewBox="0 0 24 24" fill="currentColor">
+                                                <path
+                                                    d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                                            </svg>
+                                        </a>
+                                    </Button>
+                                    <Button
+                                        asChild
+                                        size="icon"
+                                    >
+                                        <a href="#" aria-label="Instagram">
+                                            <svg className="size-5" viewBox="0 0 24 24" fill="currentColor">
+                                                <path
+                                                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                                            </svg>
+                                        </a>
+                                    </Button>
                                 </div>
+                            </div>
+                        </div>
+
+                        <div
+                            className="mt-8 flex flex-col items-start justify-between gap-4 border-black/5 border-t pt-6 text-black/50 text-xs tracking-tighter sm:flex-row sm:items-center dark:border-white/10 dark:text-white/50">
+                            <p>© 2026 The Table App Ltd. All rights reserved.</p>
+                            <div className="flex gap-4">
+                                <a
+                                    className="transition-colors hover:text-black/70 dark:hover:text-white/70"
+                                    href="#"
+                                >
+                                    Terms
+                                </a>
+                                <a
+                                    className="transition-colors hover:text-black/70 dark:hover:text-white/70"
+                                    href="/privacy"
+                                >
+                                    Privacy
+                                </a>
                             </div>
                         </div>
                     </div>
