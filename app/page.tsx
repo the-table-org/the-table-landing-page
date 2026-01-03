@@ -67,29 +67,30 @@ export default function Home() {
                 </header>
             </div>
 
-            <main className='relative min-h-screen w-full overflow-hidden scroll-smooth pt-14'>
-                <section className="relative w-full overflow-hidden bg-background py-12 md:py-20 lg:py-24">
+            <main className='relative min-h-screen w-full overflow-hidden scroll-smooth'>
+                <section className="relative w-full overflow-hidden bg-background min-h-screen flex items-center justify-center pt-16 pb-20">
                     <div className="container relative mx-auto px-4 md:px-6">
-                        <div className="flex flex-col items-center justify-center gap-6 text-center">
-                            <div className="flex max-w-3xl flex-col items-center justify-center space-y-4">
-                                <div className="space-y-2.5">
+                        <div className="flex flex-col items-center justify-center text-center">
+                            <div className="flex max-w-4xl flex-col items-center justify-center space-y-10">
+                                <div className="space-y-6">
                                     <h1
-                                        className="text-3xl text-foreground tracking-tighter sm:text-4xl md:text-7xl balance">
-                                        Transcend human limits<br/>
-                                        <span className="text-muted-foreground">Augment your mind.</span>
+                                        className="text-4xl text-foreground tracking-tight sm:text-5xl md:text-6xl lg:text-7xl font-semibold">
+                                        Connection deserves a seat.
                                     </h1>
-                                    <p className="mx-auto max-w-[600px] text-muted-foreground text-sm leading-relaxed md:text-base">
-                                        Neural enhancement technology that expands memory, synthesizes voice, and
-                                        connects minds.
-                                        Experience the next evolution of human potential.
+                                    <p className="mx-auto max-w-[700px] text-muted-foreground text-base leading-relaxed md:text-lg">
+                                        At The Table, we believe the most meaningful conversations happen when thoughtfully chosen people gather around a table to share a meal together.
                                     </p>
                                 </div>
-                                <div className="flex flex-col gap-2 pt-2 min-[400px]:flex-row">
+                                <div className="flex flex-col gap-4 items-center">
                                     <Button
                                         asChild
+                                        size="lg"
                                     >
-                                        <Link href="/login">Join Our Guestlist</Link>
+                                        <Link href="/questionnaire">Join our Guestlist</Link>
                                     </Button>
+                                    <p className="text-muted-foreground/70 text-xs leading-relaxed max-w-md">
+                                        We&apos;re currently curating dinners at London&apos;s best restaurants. You&apos;ll be the first to know when tables drop.
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -97,9 +98,9 @@ export default function Home() {
                 </section>
 
                 <section
-                    className="w-full overflow-hidden bg-white pt-12 pb-8 md:pt-16 md:pb-10 lg:pt-20 lg:pb-12 dark:bg-black/3">
+                    className="w-full overflow-hidden bg-white py-16 md:py-24 lg:py-32 dark:bg-black/3">
                     <div className="container mx-auto px-4 md:px-6">
-                        <div className="mb-10 space-y-3 text-center">
+                        <div className="mb-12 md:mb-16 space-y-4 text-center">
                             <div className="mx-auto flex w-fit items-center justify-center">
                                 <div className="flex items-center gap-3">
                                     <div
@@ -116,11 +117,11 @@ export default function Home() {
                                 Concept</h2></div>
 
 
-                        <div className="mx-auto max-w-4xl">
-                            <div className="grid grid-cols-1 gap-3 lg:grid-cols-3">
+                        <div className="mx-auto max-w-5xl">
+                            <div className="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-3">
                                 <div
                                     className="flex h-full flex-col overflow-hidden rounded-xl border border-black/5 bg-black/3 dark:border-white/10 dark:bg-white/10">
-                                    <div className="flex flex-1 flex-col p-4">
+                                    <div className="flex flex-1 flex-col p-6">
                                         <div className="mb-3 flex items-center justify-between">
                                             <div className="flex items-center gap-2"><span
                                                 className="font-mono text-[10px] text-black/40 tracking-tighter dark:text-white/40">01</span>
@@ -136,7 +137,7 @@ export default function Home() {
                                 </div>
                                 <div
                                     className="flex h-full flex-col overflow-hidden rounded-xl border border-black/5 bg-black/3 dark:border-white/10 dark:bg-white/10">
-                                    <div className="flex flex-1 flex-col p-4">
+                                    <div className="flex flex-1 flex-col p-6">
                                         <div className="mb-3 flex items-center justify-between">
                                             <div className="flex items-center gap-2"><span
                                                 className="font-mono text-[10px] text-black/40 tracking-tighter dark:text-white/40">02</span>
@@ -152,7 +153,7 @@ export default function Home() {
                                 </div>
                                 <div
                                     className="flex h-full flex-col overflow-hidden rounded-xl border border-black/5 bg-black/3 dark:border-white/10 dark:bg-white/10">
-                                    <div className="flex flex-1 flex-col p-4">
+                                    <div className="flex flex-1 flex-col p-6">
                                         <div className="mb-3 flex items-center justify-between">
                                             <div className="flex items-center gap-2"><span
                                                 className="font-mono text-[10px] text-black/40 tracking-tighter dark:text-white/40">03</span>
@@ -171,9 +172,9 @@ export default function Home() {
                 </section>
 
                 <section
-                    className="w-full overflow-hidden bg-white pt-12 pb-8 md:pt-16 md:pb-10 lg:pt-20 lg:pb-12 dark:bg-black/3">
+                    className="w-full overflow-hidden bg-white py-16 md:py-24 lg:py-32 dark:bg-black/3">
                     <div className="container mx-auto px-4 md:px-6">
-                        <div className="mb-10 space-y-3 text-center">
+                        <div className="mb-12 md:mb-16 space-y-4 text-center">
                             <div className="mx-auto flex w-fit items-center justify-center">
                                 <div className="flex items-center gap-3">
                                     <div
@@ -190,11 +191,11 @@ export default function Home() {
                                 of Engagement</h2></div>
 
 
-                        <div className="mx-auto max-w-4xl">
-                            <div className="grid grid-cols-1 gap-3 lg:grid-cols-3">
+                        <div className="mx-auto max-w-5xl">
+                            <div className="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-3">
                                 <div
                                     className="flex h-full flex-col overflow-hidden rounded-xl border border-black/5 bg-black/3 dark:border-white/10 dark:bg-white/10">
-                                    <div className="flex flex-1 flex-col p-4">
+                                    <div className="flex flex-1 flex-col p-6">
                                         <div className="mb-3 flex items-center justify-between">
                                             <div className="flex items-center gap-2"><span
                                                 className="font-mono text-[10px] text-black/40 tracking-tighter dark:text-white/40">01</span>
@@ -204,12 +205,12 @@ export default function Home() {
                                         <h3 className="mb-1.5 font-semibold text-base text-black/80 tracking-tighter dark:text-white/80">Presence</h3>
                                         <p
                                             className="mb-3 text-[11px] text-black/60 leading-relaxed tracking-tighter dark:text-white/60">A
-                                            rarity in today’s world, bring your full self to the table.</p>
+                                            rarity in today's world, bring your full self to the table.</p>
                                     </div>
                                 </div>
                                 <div
                                     className="flex h-full flex-col overflow-hidden rounded-xl border border-black/5 bg-black/3 dark:border-white/10 dark:bg-white/10">
-                                    <div className="flex flex-1 flex-col p-4">
+                                    <div className="flex flex-1 flex-col p-6">
                                         <div className="mb-3 flex items-center justify-between">
                                             <div className="flex items-center gap-2"><span
                                                 className="font-mono text-[10px] text-black/40 tracking-tighter dark:text-white/40">02</span>
@@ -224,7 +225,7 @@ export default function Home() {
                                 </div>
                                 <div
                                     className="flex h-full flex-col overflow-hidden rounded-xl border border-black/5 bg-black/3 dark:border-white/10 dark:bg-white/10">
-                                    <div className="flex flex-1 flex-col p-4">
+                                    <div className="flex flex-1 flex-col p-6">
                                         <div className="mb-3 flex items-center justify-between">
                                             <div className="flex items-center gap-2"><span
                                                 className="font-mono text-[10px] text-black/40 tracking-tighter dark:text-white/40">03</span>
@@ -243,9 +244,9 @@ export default function Home() {
                 </section>
 
                 <section
-                    className="w-full overflow-hidden bg-white pt-12 pb-8 md:pt-16 md:pb-10 lg:pt-20 lg:pb-12 dark:bg-black/3">
+                    className="w-full overflow-hidden bg-white py-16 md:py-24 lg:py-32 dark:bg-black/3">
                     <div className="container mx-auto px-4 md:px-6">
-                        <div className="mb-10 space-y-3 text-center">
+                        <div className="mb-12 md:mb-16 space-y-4 text-center">
                             <div className="mx-auto flex w-fit items-center justify-center">
                                 <div className="flex items-center gap-3">
                                     <div
@@ -262,7 +263,7 @@ export default function Home() {
                                 We Gather</h2>
                         </div>
 
-                        <div className="mx-auto max-w-2xl">
+                        <div className="mx-auto max-w-3xl">
                             <div className="space-y-6 text-center">
                                 <p className="text-base text-neutral-600 leading-relaxed dark:text-neutral-400">
                                     In a world of surface-level interactions, we&apos;re building something deeper. We
@@ -279,7 +280,7 @@ export default function Home() {
                 </section>
             </main>
 
-            <footer className="w-full overflow-hidden bg-white py-12 md:py-16 dark:bg-black/3">
+            <footer className="w-full overflow-hidden bg-white py-12 md:py-16  dark:bg-black/3">
                 <div className="container mx-auto px-4 md:px-6">
                     <div
                         className="rounded-xl border border-black/5 bg-black/3 p-6 md:p-8 dark:border-white/10 dark:bg-white/10">
