@@ -55,19 +55,9 @@ export default function Home() {
                     <div className="flex items-start relative z-10">
                         <Link href="/">
                             <motion.div
-                                className="w-14 h-14 bg-white/10 backdrop-blur-sm rounded-2xl flex items-center justify-center border border-white/20 cursor-pointer hover:bg-white/20 transition-colors"
-                                whileHover={{scale: 1.05, rotate: 5}}
+                                className="w-14 h-14 backdrop-blur rounded-full flex items-center justify-center border border-white/20 cursor-pointer hover:bg-white/20 transition-colors"
+                                whileHover={{scale: 1.05}}
                                 whileTap={{scale: 0.95}}
-                                animate={{
-                                    y: [0, -8, 0],
-                                }}
-                                transition={{
-                                    y: {
-                                        duration: 4,
-                                        repeat: Infinity,
-                                        ease: "easeInOut",
-                                    },
-                                }}
                             >
                                 <Image
                                     src="/logo.png"
@@ -91,7 +81,7 @@ export default function Home() {
                     >
                         <motion.h1
                             variants={itemVariants}
-                            className="text-3xl lg:text-4xl font-serif font-semibold text-foreground mb-8 leading-tight"
+                            className="text-4xl lg:text-5xl font-serif font-medium text-foreground mb-10 leading-[1.15] tracking-tight"
                         >
                             <WritingText
                                 text="Connection deserves a seat."
@@ -99,7 +89,7 @@ export default function Home() {
                             />
                         </motion.h1>
 
-                        <div className="space-y-5 text-[16px] leading-[1.7] text-muted-foreground">
+                        <div className="space-y-6 text-[17px] leading-[1.8] text-muted-foreground/90 font-light">
                             <motion.p variants={itemVariants}>
                                 Before cities or language, people gathered around fires. Around anything that felt like
                                 a place to belong. We shared stories and warmth not because we planned to, but because
@@ -124,7 +114,7 @@ export default function Home() {
                         {/* CTA Button */}
                         <motion.div
                             variants={itemVariants}
-                            className="mt-12"
+                            className="mt-14"
                         >
                             <motion.div
                             >
