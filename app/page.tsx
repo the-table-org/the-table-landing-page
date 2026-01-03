@@ -112,9 +112,7 @@ export default function Home() {
                                 </div>
                             </div>
                             <h2 className="font-semibold text-3xl text-neutral-900 tracking-tight sm:text-4xl dark:text-neutral-50">Basic
-                                Concept</h2><p
-                            className="mx-auto max-w-[500px] text-neutral-500 text-sm dark:text-neutral-400">Three
-                            simple steps to enhance your cognitive capabilities</p></div>
+                                Concept</h2></div>
 
 
                         <div className="mx-auto max-w-4xl">
@@ -182,9 +180,7 @@ export default function Home() {
                                         className="h-px w-12 bg-linear-to-l from-transparent to-black/10 dark:to-white/10"></div>
                                 </div>
                             </div>
-                            <h2 className="font-semibold text-3xl text-neutral-900 tracking-tight sm:text-4xl dark:text-neutral-50">Rules of Engagement</h2><p
-                            className="mx-auto max-w-[500px] text-neutral-500 text-sm dark:text-neutral-400">Three
-                            simple steps to enhance your cognitive capabilities</p></div>
+                            <h2 className="font-semibold text-3xl text-neutral-900 tracking-tight sm:text-4xl dark:text-neutral-50">Rules of Engagement</h2></div>
 
 
                         <div className="mx-auto max-w-4xl">
@@ -228,6 +224,38 @@ export default function Home() {
                                         className="mb-3 text-[11px] text-black/60 leading-relaxed tracking-tighter dark:text-white/60">Commit, not just to the booking, but to the experience..</p>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section
+                    className="w-full overflow-hidden bg-white pt-12 pb-8 md:pt-16 md:pb-10 lg:pt-20 lg:pb-12 dark:bg-black/3">
+                    <div className="container mx-auto px-4 md:px-6">
+                        <div className="mb-10 space-y-3 text-center">
+                            <div className="mx-auto flex w-fit items-center justify-center">
+                                <div className="flex items-center gap-3">
+                                    <div
+                                        className="h-px w-12 bg-linear-to-r from-transparent to-black/10 dark:to-white/10"></div>
+                                    <div
+                                        className="flex items-center gap-2 rounded-lg border border-black/5 bg-black/2 px-3 py-1.5 dark:border-white/10 dark:bg-white/5">
+                                        <span className="font-medium text-black/60 text-xs dark:text-white/60">Our Philosophy</span>
+                                    </div>
+                                    <div
+                                        className="h-px w-12 bg-linear-to-l from-transparent to-black/10 dark:to-white/10"></div>
+                                </div>
+                            </div>
+                            <h2 className="font-semibold text-3xl text-neutral-900 tracking-tight sm:text-4xl dark:text-neutral-50">Why We Gather</h2>
+                        </div>
+
+                        <div className="mx-auto max-w-2xl">
+                            <div className="space-y-6 text-center">
+                                <p className="text-base text-neutral-600 leading-relaxed dark:text-neutral-400">
+                                    In a world of surface-level interactions, we&apos;re building something deeper. We believe food is more than fuel, it&apos;s a shared language. And connection is more than a buzzword, it&apos;s a basic human need.
+                                </p>
+                                <p className="text-base text-neutral-600 leading-relaxed dark:text-neutral-400">
+                                    The Table App exists to bring curious minds together through shared dinners that remind us what it means to be in community.
+                                </p>
                             </div>
                         </div>
                     </div>
