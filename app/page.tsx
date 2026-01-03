@@ -1,7 +1,6 @@
 "use client";
 
 import {Button} from "@/components/ui/button";
-import {Separator} from "@/components/ui/separator";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -9,7 +8,8 @@ export default function Home() {
     return (
         <div className="bg-background text-foreground overflow-hidden">
             <div className="fixed top-0 right-0 left-0 z-50 w-full">
-                <header className="relative z-50 w-full tracking-tighter transition-all duration-300 bg-background/80 backdrop-blur-sm">
+                <header
+                    className="relative z-50 w-full tracking-tighter transition-all duration-300 bg-background/80 backdrop-blur-sm">
                     <div className="relative mx-auto max-w-7xl px-6">
                         <div className="flex h-16 items-center justify-between gap-8">
                             <div className="flex items-center">
@@ -21,7 +21,8 @@ export default function Home() {
                                         height={32}
                                         priority
                                     />
-                                    <span className="font-bold text-2xl text-foreground tracking-tighter transition-colors">
+                                    <span
+                                        className="font-bold text-2xl text-foreground tracking-tighter transition-colors">
                                         The Table App
                                     </span>
                                 </Link>
@@ -33,14 +34,14 @@ export default function Home() {
                                         size="sm"
                                         className="text-muted-foreground hover:text-foreground"
                                     >
-                                        Future of Human
+                                        How it Works
                                     </Button>
                                     <Button
                                         variant="ghost"
                                         size="sm"
                                         className="text-muted-foreground hover:text-foreground"
                                     >
-                                        Company
+                                        What is Required?
                                     </Button>
                                     <Button
                                         variant="ghost"
@@ -48,15 +49,16 @@ export default function Home() {
                                         className="text-muted-foreground hover:text-foreground"
                                         asChild
                                     >
-                                        <Link href="/#pricing">Pricing</Link>
+                                        <Link href="/#pricing">Why We Gather</Link>
                                     </Button>
                                 </nav>
-                                <Separator orientation="vertical" className="mx-3 h-4" />
+                                <div className="mx-3 h-4 w-px bg-black/10 dark:bg-white/10"></div>
                                 <Button
                                     size="sm"
                                     asChild
                                 >
-                                    <Link href="/login">Get Started</Link>
+                                    <a href="https://apps.apple.com/app/the-table-app/id6752313205" target="_blank"
+                                       rel="noopener noreferrer">Get The Table App</a>
                                 </Button>
                             </div>
                         </div>
@@ -76,13 +78,13 @@ export default function Home() {
                                         <span className="text-muted-foreground">Augment your mind.</span>
                                     </h1>
                                     <p className="mx-auto max-w-[600px] text-muted-foreground text-sm leading-relaxed md:text-base">
-                                        Neural enhancement technology that expands memory, synthesizes voice, and connects minds.
+                                        Neural enhancement technology that expands memory, synthesizes voice, and
+                                        connects minds.
                                         Experience the next evolution of human potential.
                                     </p>
                                 </div>
                                 <div className="flex flex-col gap-2 pt-2 min-[400px]:flex-row">
                                     <Button
-                                        size="sm"
                                         asChild
                                     >
                                         <Link href="/login">Join Our Guestlist</Link>
@@ -91,16 +93,141 @@ export default function Home() {
                             </div>
                         </div>
                     </div>
-                    <div className="container relative mx-auto mt-12 px-4 md:mt-16 md:px-6">
-                        <div className="flex items-center justify-center w-full">
-                            <div className="flex items-center gap-3">
-                                <div className="h-px w-16 bg-border" />
-                                <button
-                                    className="group flex cursor-pointer items-center gap-2 rounded-lg border border-border bg-muted px-3 py-1.5 transition-all duration-200 hover:scale-105 hover:bg-muted/80 hover:shadow-sm">
-                                    <span
-                                        className="font-medium text-muted-foreground text-xs transition-colors group-hover:text-foreground">Discover Capabilities</span>
-                                </button>
-                                <div className="h-px w-16 bg-border" />
+                </section>
+
+                <section
+                    className="w-full overflow-hidden bg-white pt-12 pb-8 md:pt-16 md:pb-10 lg:pt-20 lg:pb-12 dark:bg-black/3">
+                    <div className="container mx-auto px-4 md:px-6">
+                        <div className="mb-10 space-y-3 text-center">
+                            <div className="mx-auto flex w-fit items-center justify-center">
+                                <div className="flex items-center gap-3">
+                                    <div
+                                        className="h-px w-12 bg-linear-to-r from-transparent to-black/10 dark:to-white/10"></div>
+                                    <div
+                                        className="flex items-center gap-2 rounded-lg border border-black/5 bg-black/2 px-3 py-1.5 dark:border-white/10 dark:bg-white/5">
+                                        <span className="font-medium text-black/60 text-xs dark:text-white/60">How it works</span>
+                                    </div>
+                                    <div
+                                        className="h-px w-12 bg-linear-to-l from-transparent to-black/10 dark:to-white/10"></div>
+                                </div>
+                            </div>
+                            <h2 className="font-semibold text-3xl text-neutral-900 tracking-tight sm:text-4xl dark:text-neutral-50">Basic
+                                Concept</h2><p
+                            className="mx-auto max-w-[500px] text-neutral-500 text-sm dark:text-neutral-400">Three
+                            simple steps to enhance your cognitive capabilities</p></div>
+
+
+                        <div className="mx-auto max-w-4xl">
+                            <div className="grid grid-cols-1 gap-3 lg:grid-cols-3">
+                                <div
+                                    className="flex h-full flex-col overflow-hidden rounded-xl border border-black/5 bg-black/3 dark:border-white/10 dark:bg-white/10">
+                                    <div className="flex flex-1 flex-col p-4">
+                                        <div className="mb-3 flex items-center justify-between">
+                                            <div className="flex items-center gap-2"><span
+                                                className="font-mono text-[10px] text-black/40 tracking-tighter dark:text-white/40">01</span>
+                                                <div className="h-px w-4 bg-[#A8F1F7]/30"></div>
+                                            </div>
+                                        </div>
+                                        <h3 className="mb-1.5 font-semibold text-base text-black/80 tracking-tighter dark:text-white/80">Join
+                                            our Guestlist</h3><p
+                                        className="mb-3 text-[11px] text-black/60 leading-relaxed tracking-tighter dark:text-white/60">Start
+                                        by telling us a bit about yourself. We review each application to ensure a
+                                        thoughtful fit.</p>
+                                    </div>
+                                </div>
+                                <div
+                                    className="flex h-full flex-col overflow-hidden rounded-xl border border-black/5 bg-black/3 dark:border-white/10 dark:bg-white/10">
+                                    <div className="flex flex-1 flex-col p-4">
+                                        <div className="mb-3 flex items-center justify-between">
+                                            <div className="flex items-center gap-2"><span
+                                                className="font-mono text-[10px] text-black/40 tracking-tighter dark:text-white/40">02</span>
+                                                <div className="h-px w-4 bg-[#A8F1F7]/30"></div>
+                                            </div>
+                                        </div>
+                                        <h3 className="mb-1.5 font-semibold text-base text-black/80 tracking-tighter dark:text-white/80">Request A Seat</h3><p
+                                        className="mb-3 text-[11px] text-black/60 leading-relaxed tracking-tighter dark:text-white/60">When a table drops, request a seat. Each table is curated for 6 guests, based on shared interests.</p>
+                                    </div>
+                                </div>
+                                <div
+                                    className="flex h-full flex-col overflow-hidden rounded-xl border border-black/5 bg-black/3 dark:border-white/10 dark:bg-white/10">
+                                    <div className="flex flex-1 flex-col p-4">
+                                        <div className="mb-3 flex items-center justify-between">
+                                            <div className="flex items-center gap-2"><span
+                                                className="font-mono text-[10px] text-black/40 tracking-tighter dark:text-white/40">03</span>
+                                                <div className="h-px w-4 bg-[#A8F1F7]/30"></div>
+                                            </div>
+                                        </div>
+                                        <h3 className="mb-1.5 font-semibold text-base text-black/80 tracking-tighter dark:text-white/80">RSVP</h3><p
+                                        className="mb-3 text-[11px] text-black/60 leading-relaxed tracking-tighter dark:text-white/60">Confirm your spot, mark your calendar, and prepare for a memorable dinner.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section
+                    className="w-full overflow-hidden bg-white pt-12 pb-8 md:pt-16 md:pb-10 lg:pt-20 lg:pb-12 dark:bg-black/3">
+                    <div className="container mx-auto px-4 md:px-6">
+                        <div className="mb-10 space-y-3 text-center">
+                            <div className="mx-auto flex w-fit items-center justify-center">
+                                <div className="flex items-center gap-3">
+                                    <div
+                                        className="h-px w-12 bg-linear-to-r from-transparent to-black/10 dark:to-white/10"></div>
+                                    <div
+                                        className="flex items-center gap-2 rounded-lg border border-black/5 bg-black/2 px-3 py-1.5 dark:border-white/10 dark:bg-white/5">
+                                        <span className="font-medium text-black/60 text-xs dark:text-white/60">What is Required?</span>
+                                    </div>
+                                    <div
+                                        className="h-px w-12 bg-linear-to-l from-transparent to-black/10 dark:to-white/10"></div>
+                                </div>
+                            </div>
+                            <h2 className="font-semibold text-3xl text-neutral-900 tracking-tight sm:text-4xl dark:text-neutral-50">Rules of Engagement</h2><p
+                            className="mx-auto max-w-[500px] text-neutral-500 text-sm dark:text-neutral-400">Three
+                            simple steps to enhance your cognitive capabilities</p></div>
+
+
+                        <div className="mx-auto max-w-4xl">
+                            <div className="grid grid-cols-1 gap-3 lg:grid-cols-3">
+                                <div
+                                    className="flex h-full flex-col overflow-hidden rounded-xl border border-black/5 bg-black/3 dark:border-white/10 dark:bg-white/10">
+                                    <div className="flex flex-1 flex-col p-4">
+                                        <div className="mb-3 flex items-center justify-between">
+                                            <div className="flex items-center gap-2"><span
+                                                className="font-mono text-[10px] text-black/40 tracking-tighter dark:text-white/40">01</span>
+                                                <div className="h-px w-4 bg-[#A8F1F7]/30"></div>
+                                            </div>
+                                        </div>
+                                        <h3 className="mb-1.5 font-semibold text-base text-black/80 tracking-tighter dark:text-white/80">Presence</h3><p
+                                        className="mb-3 text-[11px] text-black/60 leading-relaxed tracking-tighter dark:text-white/60">A rarity in today’s world, bring your full self to the table.</p>
+                                    </div>
+                                </div>
+                                <div
+                                    className="flex h-full flex-col overflow-hidden rounded-xl border border-black/5 bg-black/3 dark:border-white/10 dark:bg-white/10">
+                                    <div className="flex flex-1 flex-col p-4">
+                                        <div className="mb-3 flex items-center justify-between">
+                                            <div className="flex items-center gap-2"><span
+                                                className="font-mono text-[10px] text-black/40 tracking-tighter dark:text-white/40">02</span>
+                                                <div className="h-px w-4 bg-[#A8F1F7]/30"></div>
+                                            </div>
+                                        </div>
+                                        <h3 className="mb-1.5 font-semibold text-base text-black/80 tracking-tighter dark:text-white/80">Curiosity</h3><p
+                                        className="mb-3 text-[11px] text-black/60 leading-relaxed tracking-tighter dark:text-white/60">Memorable conversations begin with an open mind and a curious spirit.</p>
+                                    </div>
+                                </div>
+                                <div
+                                    className="flex h-full flex-col overflow-hidden rounded-xl border border-black/5 bg-black/3 dark:border-white/10 dark:bg-white/10">
+                                    <div className="flex flex-1 flex-col p-4">
+                                        <div className="mb-3 flex items-center justify-between">
+                                            <div className="flex items-center gap-2"><span
+                                                className="font-mono text-[10px] text-black/40 tracking-tighter dark:text-white/40">03</span>
+                                                <div className="h-px w-4 bg-[#A8F1F7]/30"></div>
+                                            </div>
+                                        </div>
+                                        <h3 className="mb-1.5 font-semibold text-base text-black/80 tracking-tighter dark:text-white/80">Intention</h3><p
+                                        className="mb-3 text-[11px] text-black/60 leading-relaxed tracking-tighter dark:text-white/60">Commit, not just to the booking, but to the experience..</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
