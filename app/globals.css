@@ -67,7 +67,7 @@ input:-webkit-autofill:active {
 }
 
 :root {
-    --radius: 1rem;
+    --radius: 0.75rem;
     /* Pure white background */
     --background: oklch(1 0 0);
     /* Pure black foreground */
