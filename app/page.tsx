@@ -7,6 +7,8 @@ import Link from "next/link";
 import {motion, useScroll, useTransform, useInView} from "framer-motion";
 import {useEffect, useRef, useState} from "react";
 import {WritingText} from "@/components/animate-ui/text/writing";
+import {supabase} from "@/lib/supabase";
+import {OtpModal} from "@/components/ui/otp-modal";
 
 function SectionHeader({badge, title}: { badge: string; title: string }) {
     const ref = useRef(null);
@@ -99,6 +101,11 @@ export default function Home() {
     const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
     const scale = useTransform(scrollYProgress, [0, 0.2], [1, 0.95]);
 
+    const [email, setEmail] = useState("");
+    const [isOtpModalOpen, setIsOtpModalOpen] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState("");
+
     useEffect(() => {
         const sections = document.querySelectorAll("section[id]");
         const observerOptions = {
@@ -131,6 +138,55 @@ export default function Home() {
                 top: offsetPosition,
                 behavior: "smooth"
             });
+        }
+    };
+
+    const handleJoinGuestlist = async () => {
+        setError("");
+
+        if (!email || !email.includes("@")) {
+            setError("Please enter a valid email address");
+            return;
+        }
+
+        setIsLoading(true);
+        setIsOtpModalOpen(true);
+
+        try {
+            const {error} = await supabase.auth.signInWithOtp({
+                email: email,
+                options: {
+                    shouldCreateUser: true,
+                }
+            });
+
+            if (error) throw error;
+
+            setIsOtpModalOpen(true);
+        } catch (err: any) {
+            setError(err.message || "Failed to send verification code. Please try again.");
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const handleVerifyOtp = async (otp: string) => {
+        setIsLoading(true);
+
+        try {
+            const {error} = await supabase.auth.verifyOtp({
+                email: email,
+                token: otp,
+                type: 'email'
+            });
+
+            if (error) throw error;
+
+            setIsOtpModalOpen(false);
+        } catch (err: any) {
+            throw new Error(err.message || "Invalid verification code");
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -242,16 +298,27 @@ export default function Home() {
                                     animate={{opacity: 1, y: 0}}
                                     transition={{duration: 0.8, delay: 0.6, ease: "easeOut"}}
                                 >
-                                    <div className="flex w-full gap-2">
-                                        <Input
-                                            type="email"
-                                            placeholder="Enter your email"
-                                            className="flex-1"
-                                            autoComplete="email"
-                                        />
-                                        <Button>
-                                            Join our Guestlist
-                                        </Button>
+                                    <div className="flex w-full flex-col gap-2">
+                                        <div className="flex w-full gap-2">
+                                            <Input
+                                                type="email"
+                                                placeholder="Enter your email"
+                                                className="flex-1"
+                                                autoComplete="email"
+                                                value={email}
+                                                onChange={(e) => {
+                                                    setEmail(e.target.value);
+                                                    setError("");
+                                                }}
+                                                disabled={isLoading}
+                                            />
+                                            <Button onClick={handleJoinGuestlist} disabled={isLoading}>
+                                                {isLoading ? "Sending..." : "Join our Guestlist"}
+                                            </Button>
+                                        </div>
+                                        {error && (
+                                            <p className="text-sm text-red-500 text-center">{error}</p>
+                                        )}
                                     </div>
                                     <p className="text-muted-foreground/70 text-xs leading-relaxed max-w-md text-center">
                                         We&apos;re currently curating dinners at London&apos;s best restaurants.
@@ -504,6 +571,14 @@ export default function Home() {
                     </div>
                 </div>
             </footer>
+
+            <OtpModal
+                isOpen={isOtpModalOpen}
+                onClose={() => setIsOtpModalOpen(false)}
+                onVerify={handleVerifyOtp}
+                email={email}
+                isLoading={isLoading}
+            />
         </div>
     );
 }
