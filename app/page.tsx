@@ -3,8 +3,137 @@
 import {Button} from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
+import {motion, useScroll, useTransform, useInView} from "framer-motion";
+import {useEffect, useRef, useState} from "react";
+import {WritingText} from "@/components/animate-ui/text/writing";
+import {BorderTrail} from "@/components/animate-ui/effects/border-trail";
+
+function SectionHeader({badge, title}: { badge: string; title: string }) {
+    const ref = useRef(null);
+    const isInView = useInView(ref, {once: true, margin: "-100px"});
+
+    return (
+        <div ref={ref} className="mb-12 md:mb-16 space-y-4 text-center">
+            <motion.div
+                className="mx-auto flex w-fit items-center justify-center"
+                initial={{opacity: 0, y: 20}}
+                animate={isInView ? {opacity: 1, y: 0} : {opacity: 0, y: 20}}
+                transition={{duration: 0.6, ease: "easeOut"}}
+            >
+                <div className="flex items-center gap-3">
+                    <div className="h-px w-12 bg-linear-to-r from-transparent to-black/10 dark:to-white/10"></div>
+                    <div
+                        className="flex items-center gap-2 rounded-lg border border-black/5 bg-black/2 px-3 py-1.5 dark:border-white/10 dark:bg-white/5">
+                        <span className="font-medium text-black/60 text-xs dark:text-white/60">{badge}</span>
+                    </div>
+                    <div className="h-px w-12 bg-linear-to-l from-transparent to-black/10 dark:to-white/10"></div>
+                </div>
+            </motion.div>
+            <motion.h2
+                className="font-semibold text-3xl text-neutral-900 tracking-tight sm:text-4xl dark:text-neutral-50"
+                initial={{opacity: 0, y: 20}}
+                animate={isInView ? {opacity: 1, y: 0} : {opacity: 0, y: 20}}
+                transition={{duration: 0.6, delay: 0.1, ease: "easeOut"}}
+            >
+                {title}
+            </motion.h2>
+        </div>
+    );
+}
+
+function AnimatedCard({children, delay = 0}: { children: React.ReactNode; delay?: number }) {
+    const ref = useRef(null);
+    const isInView = useInView(ref, {once: true, margin: "-100px"});
+
+    return (
+        <motion.div
+            ref={ref}
+            initial={{opacity: 0, y: 50}}
+            animate={isInView ? {opacity: 1, y: 0} : {opacity: 0, y: 50}}
+            transition={{
+                duration: 0.7,
+                delay: isInView ? delay : 0,
+                ease: [0.22, 1, 0.36, 1]
+            }}
+            className="flex h-full flex-col overflow-hidden rounded-xl border border-black/5 bg-black/3 dark:border-white/10 dark:bg-white/10"
+        >
+            {children}
+        </motion.div>
+    );
+}
+
+function AnimatedPhilosophy() {
+    const ref = useRef(null);
+    const isInView = useInView(ref, {once: true, margin: "-100px"});
+
+    return (
+        <div ref={ref} className="mx-auto max-w-3xl">
+            <div className="space-y-6 text-center">
+                <motion.p
+                    className="text-base text-neutral-600 leading-relaxed dark:text-neutral-400"
+                    initial={{opacity: 0, y: 20}}
+                    animate={isInView ? {opacity: 1, y: 0} : {opacity: 0, y: 20}}
+                    transition={{duration: 0.6, ease: "easeOut"}}
+                >
+                    In a world of surface-level interactions, we&apos;re building something deeper. We
+                    believe food is more than fuel, it&apos;s a shared language. And connection is more
+                    than a buzzword, it&apos;s a basic human need.
+                </motion.p>
+                <motion.p
+                    className="text-base text-neutral-600 leading-relaxed dark:text-neutral-400"
+                    initial={{opacity: 0, y: 20}}
+                    animate={isInView ? {opacity: 1, y: 0} : {opacity: 0, y: 20}}
+                    transition={{duration: 0.6, delay: 0.15, ease: "easeOut"}}
+                >
+                    The Table App exists to bring curious minds together through shared dinners that
+                    remind us what it means to be in community.
+                </motion.p>
+            </div>
+        </div>
+    );
+}
 
 export default function Home() {
+    const [activeSection, setActiveSection] = useState("hero");
+    const {scrollYProgress} = useScroll();
+    const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
+    const scale = useTransform(scrollYProgress, [0, 0.2], [1, 0.95]);
+
+    useEffect(() => {
+        const sections = document.querySelectorAll("section[id]");
+        const observerOptions = {
+            root: null,
+            rootMargin: "-20% 0px -60% 0px",
+            threshold: 0
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    setActiveSection(entry.target.id);
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach((section) => observer.observe(section));
+
+        return () => sections.forEach((section) => observer.unobserve(section));
+    }, []);
+
+    const scrollToSection = (sectionId: string) => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+            const offset = 80;
+            const elementPosition = element.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: "smooth"
+            });
+        }
+    };
+
     return (
         <div className="bg-background text-foreground overflow-hidden">
             <div className="fixed top-0 right-0 left-0 z-50 w-full">
@@ -32,25 +161,32 @@ export default function Home() {
                                     <Button
                                         variant="ghost"
                                         size="sm"
-                                        className="text-muted-foreground hover:text-foreground"
+                                        className={`text-muted-foreground hover:text-foreground transition-all duration-300 ${
+                                            activeSection === "how-it-works" ? "text-foreground font-medium" : ""
+                                        }`}
+                                        onClick={() => scrollToSection("how-it-works")}
                                     >
                                         How it Works
                                     </Button>
                                     <Button
                                         variant="ghost"
                                         size="sm"
-                                        className="text-muted-foreground hover:text-foreground"
+                                        className={`text-muted-foreground hover:text-foreground transition-all duration-300 ${
+                                            activeSection === "what-is-required" ? "text-foreground font-medium" : ""
+                                        }`}
+                                        onClick={() => scrollToSection("what-is-required")}
                                     >
                                         What is Required
                                     </Button>
                                     <Button
                                         variant="ghost"
                                         size="sm"
-                                        className="text-muted-foreground hover:text-foreground"
-                                        asChild
+                                        className={`text-muted-foreground hover:text-foreground transition-all duration-300 ${
+                                            activeSection === "philosophy" ? "text-foreground font-medium" : ""
+                                        }`}
+                                        onClick={() => scrollToSection("philosophy")}
                                     >
-                                        <Link href="/#pricing">
-                                            Our Philosophy</Link>
+                                        Our Philosophy
                                     </Button>
                                 </nav>
                                 <div className="mx-3 h-4 w-px bg-black/10 dark:bg-white/10"></div>
@@ -68,20 +204,44 @@ export default function Home() {
             </div>
 
             <main className='relative min-h-screen w-full overflow-hidden scroll-smooth'>
-                <section className="relative w-full overflow-hidden bg-background min-h-screen flex items-center justify-center pt-16 pb-20">
-                    <div className="container relative mx-auto px-4 md:px-6">
+                <section id="hero"
+                         className="relative w-full overflow-hidden bg-background min-h-screen flex items-center justify-center pt-16 pb-20">
+                    <motion.div
+                        className="container relative mx-auto px-4 md:px-6"
+                        style={{opacity, scale}}
+                    >
                         <div className="flex flex-col items-center justify-center text-center">
                             <div className="flex max-w-4xl flex-col items-center justify-center space-y-10">
-                                <div className="space-y-6">
-                                    <h1
-                                        className="text-4xl text-foreground tracking-tight sm:text-5xl md:text-6xl lg:text-7xl font-semibold">
-                                        Connection deserves a seat.
+                                <motion.div
+                                    className="space-y-6"
+                                    initial={{opacity: 0, y: 30}}
+                                    animate={{opacity: 1, y: 0}}
+                                    transition={{duration: 0.8, ease: "easeOut"}}
+                                >
+                                    <h1 className="text-4xl text-foreground tracking-tight sm:text-5xl md:text-6xl lg:text-7xl font-semibold">
+                                        <WritingText
+                                            text="Connection deserves a seat."
+                                            transition={{type: "spring", bounce: 0, duration: 1.5, delay: 0.05}}
+                                            inView={true}
+                                            inViewOnce={true}
+                                        />
                                     </h1>
-                                    <p className="mx-auto max-w-[700px] text-muted-foreground text-base leading-relaxed md:text-lg">
-                                        At The Table, we believe the most meaningful conversations happen when thoughtfully chosen people gather around a table to share a meal together.
-                                    </p>
-                                </div>
-                                <div className="flex flex-col gap-4 items-center">
+                                    <motion.p
+                                        className="mx-auto max-w-[700px] text-muted-foreground text-base leading-relaxed md:text-lg"
+                                        initial={{opacity: 0, y: 20}}
+                                        animate={{opacity: 1, y: 0}}
+                                        transition={{duration: 0.8, delay: 0.4, ease: "easeOut"}}
+                                    >
+                                        At The Table, we believe the most meaningful conversations happen when
+                                        thoughtfully chosen people gather around a table to share a meal together.
+                                    </motion.p>
+                                </motion.div>
+                                <motion.div
+                                    className="flex flex-col gap-4 items-center"
+                                    initial={{opacity: 0, y: 20}}
+                                    animate={{opacity: 1, y: 0}}
+                                    transition={{duration: 0.8, delay: 0.6, ease: "easeOut"}}
+                                >
                                     <Button
                                         asChild
                                         size="lg"
@@ -89,38 +249,28 @@ export default function Home() {
                                         <Link href="/questionnaire">Join our Guestlist</Link>
                                     </Button>
                                     <p className="text-muted-foreground/70 text-xs leading-relaxed max-w-md">
-                                        We&apos;re currently curating dinners at London&apos;s best restaurants. You&apos;ll be the first to know when tables drop.
+                                        We&apos;re currently curating dinners at London&apos;s best restaurants.
+                                        You&apos;ll be the first to know when tables drop.
                                     </p>
-                                </div>
+                                </motion.div>
                             </div>
                         </div>
-                    </div>
+                    </motion.div>
                 </section>
 
                 <section
+                    id="how-it-works"
                     className="w-full overflow-hidden bg-white py-16 md:py-24 lg:py-32 dark:bg-black/3">
                     <div className="container mx-auto px-4 md:px-6">
-                        <div className="mb-12 md:mb-16 space-y-4 text-center">
-                            <div className="mx-auto flex w-fit items-center justify-center">
-                                <div className="flex items-center gap-3">
-                                    <div
-                                        className="h-px w-12 bg-linear-to-r from-transparent to-black/10 dark:to-white/10"></div>
-                                    <div
-                                        className="flex items-center gap-2 rounded-lg border border-black/5 bg-black/2 px-3 py-1.5 dark:border-white/10 dark:bg-white/5">
-                                        <span className="font-medium text-black/60 text-xs dark:text-white/60">How it works</span>
-                                    </div>
-                                    <div
-                                        className="h-px w-12 bg-linear-to-l from-transparent to-black/10 dark:to-white/10"></div>
-                                </div>
-                            </div>
-                            <h2 className="font-semibold text-3xl text-neutral-900 tracking-tight sm:text-4xl dark:text-neutral-50">Basic
-                                Concept</h2></div>
+                        <SectionHeader
+                            badge="How it works"
+                            title="Basic Concept"
+                        />
 
 
                         <div className="mx-auto max-w-5xl">
                             <div className="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-3">
-                                <div
-                                    className="flex h-full flex-col overflow-hidden rounded-xl border border-black/5 bg-black/3 dark:border-white/10 dark:bg-white/10">
+                                <AnimatedCard delay={0.2}>
                                     <div className="flex flex-1 flex-col p-6">
                                         <div className="mb-3 flex items-center justify-between">
                                             <div className="flex items-center gap-2"><span
@@ -134,9 +284,8 @@ export default function Home() {
                                         by telling us a bit about yourself. We review each application to ensure a
                                         thoughtful fit.</p>
                                     </div>
-                                </div>
-                                <div
-                                    className="flex h-full flex-col overflow-hidden rounded-xl border border-black/5 bg-black/3 dark:border-white/10 dark:bg-white/10">
+                                </AnimatedCard>
+                                <AnimatedCard delay={0.4}>
                                     <div className="flex flex-1 flex-col p-6">
                                         <div className="mb-3 flex items-center justify-between">
                                             <div className="flex items-center gap-2"><span
@@ -150,9 +299,8 @@ export default function Home() {
                                         a table drops, request a seat. Each table is curated for 6 guests, based on
                                         shared interests.</p>
                                     </div>
-                                </div>
-                                <div
-                                    className="flex h-full flex-col overflow-hidden rounded-xl border border-black/5 bg-black/3 dark:border-white/10 dark:bg-white/10">
+                                </AnimatedCard>
+                                <AnimatedCard delay={0.6}>
                                     <div className="flex flex-1 flex-col p-6">
                                         <div className="mb-3 flex items-center justify-between">
                                             <div className="flex items-center gap-2"><span
@@ -165,36 +313,25 @@ export default function Home() {
                                             className="mb-3 text-[11px] text-black/60 leading-relaxed tracking-tighter dark:text-white/60">Confirm
                                             your spot, mark your calendar, and prepare for a memorable dinner.</p>
                                     </div>
-                                </div>
+                                </AnimatedCard>
                             </div>
                         </div>
                     </div>
                 </section>
 
                 <section
+                    id="what-is-required"
                     className="w-full overflow-hidden bg-white py-16 md:py-24 lg:py-32 dark:bg-black/3">
                     <div className="container mx-auto px-4 md:px-6">
-                        <div className="mb-12 md:mb-16 space-y-4 text-center">
-                            <div className="mx-auto flex w-fit items-center justify-center">
-                                <div className="flex items-center gap-3">
-                                    <div
-                                        className="h-px w-12 bg-linear-to-r from-transparent to-black/10 dark:to-white/10"></div>
-                                    <div
-                                        className="flex items-center gap-2 rounded-lg border border-black/5 bg-black/2 px-3 py-1.5 dark:border-white/10 dark:bg-white/5">
-                                        <span className="font-medium text-black/60 text-xs dark:text-white/60">What is Required</span>
-                                    </div>
-                                    <div
-                                        className="h-px w-12 bg-linear-to-l from-transparent to-black/10 dark:to-white/10"></div>
-                                </div>
-                            </div>
-                            <h2 className="font-semibold text-3xl text-neutral-900 tracking-tight sm:text-4xl dark:text-neutral-50">Rules
-                                of Engagement</h2></div>
+                        <SectionHeader
+                            badge="What is Required"
+                            title="Rules of Engagement"
+                        />
 
 
                         <div className="mx-auto max-w-5xl">
                             <div className="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-3">
-                                <div
-                                    className="flex h-full flex-col overflow-hidden rounded-xl border border-black/5 bg-black/3 dark:border-white/10 dark:bg-white/10">
+                                <AnimatedCard delay={0.2}>
                                     <div className="flex flex-1 flex-col p-6">
                                         <div className="mb-3 flex items-center justify-between">
                                             <div className="flex items-center gap-2"><span
@@ -205,11 +342,10 @@ export default function Home() {
                                         <h3 className="mb-1.5 font-semibold text-base text-black/80 tracking-tighter dark:text-white/80">Presence</h3>
                                         <p
                                             className="mb-3 text-[11px] text-black/60 leading-relaxed tracking-tighter dark:text-white/60">A
-                                            rarity in today's world, bring your full self to the table.</p>
+                                            rarity in today&#39;s world, bring your full self to the table.</p>
                                     </div>
-                                </div>
-                                <div
-                                    className="flex h-full flex-col overflow-hidden rounded-xl border border-black/5 bg-black/3 dark:border-white/10 dark:bg-white/10">
+                                </AnimatedCard>
+                                <AnimatedCard delay={0.4}>
                                     <div className="flex flex-1 flex-col p-6">
                                         <div className="mb-3 flex items-center justify-between">
                                             <div className="flex items-center gap-2"><span
@@ -222,9 +358,8 @@ export default function Home() {
                                             className="mb-3 text-[11px] text-black/60 leading-relaxed tracking-tighter dark:text-white/60">Memorable
                                             conversations begin with an open mind and a curious spirit.</p>
                                     </div>
-                                </div>
-                                <div
-                                    className="flex h-full flex-col overflow-hidden rounded-xl border border-black/5 bg-black/3 dark:border-white/10 dark:bg-white/10">
+                                </AnimatedCard>
+                                <AnimatedCard delay={0.6}>
                                     <div className="flex flex-1 flex-col p-6">
                                         <div className="mb-3 flex items-center justify-between">
                                             <div className="flex items-center gap-2"><span
@@ -237,45 +372,22 @@ export default function Home() {
                                             className="mb-3 text-[11px] text-black/60 leading-relaxed tracking-tighter dark:text-white/60">Commit,
                                             not just to the booking, but to the experience..</p>
                                     </div>
-                                </div>
+                                </AnimatedCard>
                             </div>
                         </div>
                     </div>
                 </section>
 
                 <section
+                    id="philosophy"
                     className="w-full overflow-hidden bg-white py-16 md:py-24 lg:py-32 dark:bg-black/3">
                     <div className="container mx-auto px-4 md:px-6">
-                        <div className="mb-12 md:mb-16 space-y-4 text-center">
-                            <div className="mx-auto flex w-fit items-center justify-center">
-                                <div className="flex items-center gap-3">
-                                    <div
-                                        className="h-px w-12 bg-linear-to-r from-transparent to-black/10 dark:to-white/10"></div>
-                                    <div
-                                        className="flex items-center gap-2 rounded-lg border border-black/5 bg-black/2 px-3 py-1.5 dark:border-white/10 dark:bg-white/5">
-                                        <span className="font-medium text-black/60 text-xs dark:text-white/60">Our Philosophy</span>
-                                    </div>
-                                    <div
-                                        className="h-px w-12 bg-linear-to-l from-transparent to-black/10 dark:to-white/10"></div>
-                                </div>
-                            </div>
-                            <h2 className="font-semibold text-3xl text-neutral-900 tracking-tight sm:text-4xl dark:text-neutral-50">Why
-                                We Gather</h2>
-                        </div>
+                        <SectionHeader
+                            badge="Our Philosophy"
+                            title="Why We Gather"
+                        />
 
-                        <div className="mx-auto max-w-3xl">
-                            <div className="space-y-6 text-center">
-                                <p className="text-base text-neutral-600 leading-relaxed dark:text-neutral-400">
-                                    In a world of surface-level interactions, we&apos;re building something deeper. We
-                                    believe food is more than fuel, it&apos;s a shared language. And connection is more
-                                    than a buzzword, it&apos;s a basic human need.
-                                </p>
-                                <p className="text-base text-neutral-600 leading-relaxed dark:text-neutral-400">
-                                    The Table App exists to bring curious minds together through shared dinners that
-                                    remind us what it means to be in community.
-                                </p>
-                            </div>
-                        </div>
+                        <AnimatedPhilosophy/>
                     </div>
                 </section>
             </main>
@@ -290,7 +402,8 @@ export default function Home() {
                                     className="inline-block font-semibold text-2xl text-black/80 tracking-tighter transition-opacity hover:opacity-80 dark:text-white/80"
                                     href="/"
                                 >
-                                        <span className="font-bold text-2xl text-black tracking-tighter transition-colors dark:text-white">
+                                        <span
+                                            className="font-bold text-2xl text-black tracking-tighter transition-colors dark:text-white">
                                             The Table App
                                         </span>
                                 </Link>
