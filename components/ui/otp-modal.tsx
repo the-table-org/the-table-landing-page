@@ -72,6 +72,7 @@ export function OtpModal({
       <DialogContent
         className="sm:max-w-[440px] p-0 bg-muted rounded-xl"
         showCloseButton={false}
+        onInteractOutside={(e) => e.preventDefault()}
       >
         <div className="flex flex-col">
           <div className="p-1">

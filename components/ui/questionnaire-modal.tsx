@@ -23,6 +23,7 @@ import { Badge } from "@/components/ui/badge";
 import { EnhancedPhoneInput } from "@/components/questionnaire/phone-input";
 import { SelectOption } from "@/components/questionnaire/select-option";
 import { supabase } from "@/lib/supabase";
+import QRCode from "react-qr-code";
 
 interface QuestionOption {
   id: string;
@@ -99,6 +100,7 @@ export function QuestionnaireModal({
   const [submitStatus, setSubmitStatus] = useState<
     "idle" | "loading" | "success" | "error"
   >("idle");
+  const [showSuccessScreen, setShowSuccessScreen] = useState(false);
 
   useEffect(() => {
     console.log("[QuestionnaireModal] useEffect triggered - isOpen:", isOpen);
@@ -243,14 +245,14 @@ export function QuestionnaireModal({
           : null,
       };
 
-      let answerData: any = {
+      const answerData: any = {
         type: question.type,
         value: answer,
       };
 
       if (question.type === "select" && answer) {
         const selectedOption = question.application_question_options?.find(
-          (opt) => opt.value === answer
+          (opt) => opt.value === answer,
         );
         if (selectedOption) {
           answerData.selected_option = {
@@ -314,8 +316,8 @@ export function QuestionnaireModal({
       setSubmitStatus("success");
 
       setTimeout(() => {
-        onClose();
-      }, 2000);
+        setShowSuccessScreen(true);
+      }, 1000);
     } catch (error) {
       console.error("Submission error:", error);
       setSubmitStatus("error");
@@ -450,6 +452,11 @@ export function QuestionnaireModal({
     setAnswers({});
     setPhoneValidation({});
     setSubmitStatus("idle");
+    setShowSuccessScreen(false);
+    setQuestions([]);
+    setSections([]);
+    setSteps([]);
+    setIsLoading(false);
     onClose();
   };
 
@@ -466,13 +473,79 @@ export function QuestionnaireModal({
 
   if (!isOpen) return null;
 
+  if (showSuccessScreen) {
+    return (
+      <Dialog open={isOpen} onOpenChange={handleClose}>
+        <DialogContent
+          className="!w-[600px] !max-w-[600px] !h-[600px] p-0 bg-muted rounded-xl overflow-hidden flex flex-col"
+          showCloseButton={false}
+          onInteractOutside={(e) => e.preventDefault()}
+        >
+          <div className="p-1 flex flex-col h-full">
+            <div className="rounded-xl border bg-background flex flex-col h-full overflow-hidden">
+              <div className="flex-1 flex flex-col items-center justify-center px-10 py-12">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                  className="text-center space-y-3 mb-8"
+                >
+                  <DialogTitle className="font-semibold text-3xl text-neutral-900 tracking-tight dark:text-neutral-50">
+                    Application Submitted!
+                  </DialogTitle>
+                  <DialogDescription className="text-base text-neutral-600 leading-relaxed dark:text-neutral-400 max-w-md">
+                    Thank you for applying. We&apos;ll review your application
+                    and get back to you soon.
+                  </DialogDescription>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                  className="space-y-4 text-center"
+                >
+                  <div className="space-y-2">
+                    <p className="text-sm font-medium text-neutral-900 dark:text-neutral-50">
+                      Meanwhile, download The Table App
+                    </p>
+                    <p className="text-xs text-neutral-600 dark:text-neutral-400">
+                      Scan the QR code to get started
+                    </p>
+                  </div>
+
+                  <div className="inline-block p-4 bg-white rounded-xl border border-black/5 dark:border-white/10">
+                    <QRCode
+                      value="https://apps.apple.com/app/the-table-app/id6752313205"
+                      size={180}
+                      level="M"
+                      fgColor="#000000"
+                      bgColor="#ffffff"
+                    />
+                  </div>
+                </motion.div>
+              </div>
+
+              <div className="px-10 py-6 border-t border-border flex-shrink-0">
+                <Button onClick={handleClose} className="w-full" size="lg">
+                  Close
+                </Button>
+              </div>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+    );
+  }
+
   if (isLoading) {
     console.log("[QuestionnaireModal] Rendering loading state");
     return (
       <Dialog open={isOpen} onOpenChange={handleClose}>
         <DialogContent
-          className="!w-[600px] !max-w-[600px] !h-[600px] p-0 bg-muted rounded-xl"
+          className="!w-[600px] !max-w-[600px] !h-[600px] p-0 bg-muted rounded-xl overflow-hidden flex flex-col"
           showCloseButton={false}
+          onInteractOutside={(e) => e.preventDefault()}
         >
           <DialogTitle className="sr-only">Loading Questionnaire</DialogTitle>
           <div className="flex flex-col h-full">
@@ -499,6 +572,7 @@ export function QuestionnaireModal({
         <DialogContent
           className="!w-[600px] p-0 bg-muted rounded-xl"
           showCloseButton={false}
+          onInteractOutside={(e) => e.preventDefault()}
         >
           <DialogTitle className="sr-only">No Questions Available</DialogTitle>
           <div className="flex flex-col">
@@ -529,7 +603,8 @@ export function QuestionnaireModal({
       <Dialog open={isOpen} onOpenChange={handleClose}>
         <DialogContent
           className="!w-[600px] !max-w-[600px] !h-[600px] p-0 bg-muted rounded-xl overflow-hidden flex flex-col"
-          showCloseButton={false}
+          showCloseButton={true}
+          onInteractOutside={(e) => e.preventDefault()}
         >
           <div className="p-1 flex flex-col h-full">
             <div className="rounded-xl border bg-background flex flex-col h-full overflow-hidden">
@@ -603,13 +678,14 @@ export function QuestionnaireModal({
     <Dialog open={isOpen} onOpenChange={handleClose}>
       <DialogContent
         className="!w-[600px] !max-w-[600px] !h-[600px] p-0 bg-muted rounded-xl overflow-hidden flex flex-col"
-        showCloseButton={false}
+        showCloseButton={true}
+        onInteractOutside={(e) => e.preventDefault()}
       >
         <div className="p-1 flex flex-col h-full">
           <div className="rounded-xl border bg-background flex flex-col h-full overflow-hidden">
             {/* Header */}
             <DialogHeader className="px-10 pt-6 pb-4 flex-shrink-0 space-y-0">
-              <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-3 mb-6">
                 <Badge variant="secondary" className="text-xs font-medium">
                   {currentSection?.title || "Section"}
                 </Badge>

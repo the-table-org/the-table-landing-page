@@ -176,7 +176,7 @@ export default function Home() {
       setIsOtpModalOpen(true);
     } catch (err: any) {
       setError(
-        err.message || "Failed to send verification code. Please try again."
+        err.message || "Failed to send verification code. Please try again.",
       );
     } finally {
       setIsLoading(false);
@@ -650,7 +650,11 @@ export default function Home() {
 
       <OtpModal
         isOpen={isOtpModalOpen}
-        onClose={() => setIsOtpModalOpen(false)}
+        onClose={() => {
+          setIsOtpModalOpen(false);
+          setEmail("");
+          setError("");
+        }}
         onVerify={handleVerifyOtp}
         email={email}
         isLoading={isLoading}
@@ -658,7 +662,12 @@ export default function Home() {
 
       <QuestionnaireModal
         isOpen={isQuestionnaireModalOpen}
-        onClose={() => setIsQuestionnaireModalOpen(false)}
+        onClose={() => {
+          setIsQuestionnaireModalOpen(false);
+          setEmail("");
+          setUserId(null);
+          setError("");
+        }}
         userEmail={email}
         userId={userId}
       />
