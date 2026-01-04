@@ -256,7 +256,7 @@ export default function QuestionnairePage() {
             case "phone_input":
                 return (
                     <EnhancedPhoneInput
-                        value={value}
+                        value={value as string}
                         onChangeText={(v) => updateAnswer(question.slug, v)}
                         onValidationChange={(isValid) => {
                             setPhoneValidation((prev) => ({
@@ -393,30 +393,9 @@ export default function QuestionnairePage() {
             <div className="h-screen bg-background font-sans flex items-center justify-center p-8 overflow-hidden">
                 <div className="flex gap-4 h-[95dvh] w-full">
                     {/* Left Side - Hero Image */}
-                    <div
-                        className="relative bg-primary p-6 lg:p-8 flex flex-col justify-between rounded-3xl w-2/5 overflow-hidden border border-border/50">
-                        <div className="absolute inset-0">
-                            <Image
-                                src="/community-meeting.png"
-                                alt="Community gathering"
-                                fill
-                                className="object-cover opacity-60"
-                            />
-                        </div>
-                        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/60"></div>
-                        <div className="flex items-start relative z-10">
-                            <Link href="/">
-                                <div
-                                    className="w-14 h-14 bg-white/10 backdrop-blur-sm rounded-2xl flex items-center justify-center border border-white/20 cursor-pointer hover:bg-white/20 transition-colors">
-                                    <Image src="/logo.png" alt="The Table Logo" width={24} height={24}/>
-                                </div>
-                            </Link>
-                        </div>
-                    </div>
-
                     {/* Right Side - Section Introduction */}
                     <div
-                            className="p-8 flex flex-col justify-between bg-white rounded-3xl overflow-y-auto w-3/5 border border-border/50">
+                            className="p-8 flex flex-col justify-between bg-white rounded-3xl overflow-y-auto w-full border border-border/50">
                             <div className="flex-1 flex flex-col justify-center max-w-2xl mx-auto">
                                 <div className="text-center space-y-6">
                                     {section.icon && <div className="text-6xl">{section.icon}</div>}
