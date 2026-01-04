@@ -10,7 +10,7 @@ const buttonVariants = cva(
         variants: {
             variant: {
                 default:
-                    'bg-primary text-primary-foreground hover:bg-primary/90 shadow-[inset_0_2px_4px_rgba(255,255,255,0.3),0_4px_6px_-2px_rgba(16,24,40,0.1),0_2px_4px_-1px_rgba(16,24,40,0.06)] border border-white/[0.15] active:scale-[0.98] active:shadow-[inset_0_1px_2px_rgba(0,0,0,0.2),0_1px_2px_rgba(16,24,40,0.05)] hover:ring-2 hover:ring-primary/50 hover:border-0',
+                    'bg-primary text-primary-foreground hover:bg-primary/90 shadow-[inset_0_2px_4px_rgba(255,255,255,0.3),0_4px_6px_-2px_rgba(16,24,40,0.1),0_2px_4px_-1px_rgba(16,24,40,0.06)] border border-white/[0.15] active:scale-[0.98] active:shadow-[inset_0_1px_2px_rgba(0,0,0,0.2),0_1px_2px_rgba(16,24,40,0.05)] hover:ring-2 hover:ring-primary/50 hover:border-white',
                 secondary:
                     'bg-secondary text-primary-foreground dark:text-secondary-foreground hover:bg-secondary/80 shadow-[inset_0_2px_4px_rgba(255,255,255,0.3),0_4px_6px_-2px_rgba(16,24,40,0.1),0_2px_4px_-1px_rgba(16,24,40,0.06)] border border-white/[0.15] active:scale-[0.98]  active:shadow-[inset_0_1px_2px_rgba(0,0,0,0.2),0_1px_2px_rgba(16,24,40,0.05)]',
                 destructive:
