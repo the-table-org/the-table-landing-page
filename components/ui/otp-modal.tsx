@@ -5,8 +5,18 @@ import { AnimatePresence, motion } from "framer-motion";
 import { CheckCircle, Spinner, XCircle } from "@mynaui/icons-react";
 import { REGEXP_ONLY_DIGITS } from "input-otp";
 import { Button } from "@/components/ui/button";
-import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSlot,
+} from "@/components/ui/input-otp";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 interface OtpModalProps {
   isOpen: boolean;
@@ -16,42 +26,53 @@ interface OtpModalProps {
   isLoading?: boolean;
 }
 
-export function OtpModal({ isOpen, onClose, onVerify, email, isLoading = false }: OtpModalProps) {
+export function OtpModal({
+  isOpen,
+  onClose,
+  onVerify,
+  email,
+  isLoading = false,
+}: OtpModalProps) {
   const [otp, setOtp] = useState("");
   const [error, setError] = useState("");
-  const [verifyStatus, setVerifyStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [verifyStatus, setVerifyStatus] = useState<
+    "idle" | "loading" | "success" | "error"
+  >("idle");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-    
+
     if (otp.length !== 6) {
       setError("Please enter a valid 6-digit code");
       return;
     }
 
-    setVerifyStatus('loading');
+    setVerifyStatus("loading");
 
     try {
       await onVerify(otp);
-      setVerifyStatus('success');
+      setVerifyStatus("success");
     } catch (err: any) {
       setError(err.message || "Invalid verification code. Please try again.");
-      setVerifyStatus('error');
-      setTimeout(() => setVerifyStatus('idle'), 3000);
+      setVerifyStatus("error");
+      setTimeout(() => setVerifyStatus("idle"), 3000);
     }
   };
 
   const handleClose = () => {
     setOtp("");
     setError("");
-    setVerifyStatus('idle');
+    setVerifyStatus("idle");
     onClose();
   };
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="sm:max-w-[440px] p-0 bg-muted rounded-xl" showCloseButton={false}>
+      <DialogContent
+        className="sm:max-w-[440px] p-0 bg-muted rounded-xl"
+        showCloseButton={false}
+      >
         <div className="flex flex-col">
           <div className="p-1">
             <div className="rounded-xl border bg-background">
@@ -62,8 +83,10 @@ export function OtpModal({ isOpen, onClose, onVerify, email, isLoading = false }
                   </DialogTitle>
                   <DialogDescription className="text-sm text-neutral-600 leading-relaxed dark:text-neutral-400 max-w-sm mx-auto">
                     Please enter the 6-digit verification code we sent to{" "}
-                    <span className="font-medium text-neutral-900 dark:text-neutral-50">{email}</span>. 
-                    This code will expire in 15 minutes.
+                    <span className="font-medium text-neutral-900 dark:text-neutral-50">
+                      {email}
+                    </span>
+                    . This code will expire in 15 minutes.
                   </DialogDescription>
                 </DialogHeader>
               </div>
@@ -80,7 +103,7 @@ export function OtpModal({ isOpen, onClose, onVerify, email, isLoading = false }
                           setError("");
                         }}
                         pattern={REGEXP_ONLY_DIGITS}
-                        disabled={verifyStatus === 'loading'}
+                        disabled={verifyStatus === "loading"}
                       >
                         <InputOTPGroup>
                           <InputOTPSlot index={0} />
@@ -101,11 +124,17 @@ export function OtpModal({ isOpen, onClose, onVerify, email, isLoading = false }
                     <Button
                       type="submit"
                       className="w-full"
-                      disabled={otp.length !== 6 || verifyStatus === 'loading'}
-                      variant={verifyStatus === 'error' ? 'destructive' : verifyStatus === 'success' ? 'default' : 'default'}
+                      disabled={otp.length !== 6 || verifyStatus === "loading"}
+                      variant={
+                        verifyStatus === "error"
+                          ? "destructive"
+                          : verifyStatus === "success"
+                            ? "default"
+                            : "default"
+                      }
                     >
                       <AnimatePresence mode="wait">
-                        {verifyStatus === 'loading' && (
+                        {verifyStatus === "loading" && (
                           <motion.div
                             key="loading"
                             initial={{ opacity: 0, scale: 0.95 }}
@@ -119,7 +148,7 @@ export function OtpModal({ isOpen, onClose, onVerify, email, isLoading = false }
                           </motion.div>
                         )}
 
-                        {verifyStatus === 'success' && (
+                        {verifyStatus === "success" && (
                           <motion.div
                             key="success"
                             initial={{ opacity: 0, scale: 0.95 }}
@@ -133,7 +162,7 @@ export function OtpModal({ isOpen, onClose, onVerify, email, isLoading = false }
                           </motion.div>
                         )}
 
-                        {verifyStatus === 'error' && (
+                        {verifyStatus === "error" && (
                           <motion.div
                             key="error"
                             initial={{ opacity: 0, scale: 0.95 }}
@@ -147,7 +176,7 @@ export function OtpModal({ isOpen, onClose, onVerify, email, isLoading = false }
                           </motion.div>
                         )}
 
-                        {verifyStatus === 'idle' && (
+                        {verifyStatus === "idle" && (
                           <motion.div
                             key="idle"
                             initial={{ opacity: 0, scale: 0.95 }}
@@ -167,7 +196,7 @@ export function OtpModal({ isOpen, onClose, onVerify, email, isLoading = false }
                         <button
                           type="button"
                           className="font-medium text-neutral-900 hover:underline dark:text-neutral-50"
-                          disabled={verifyStatus === 'loading'}
+                          disabled={verifyStatus === "loading"}
                         >
                           Resend
                         </button>

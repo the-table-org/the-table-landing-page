@@ -171,7 +171,8 @@ export function EnhancedPhoneInput({
     }
     const isValid = value && value.length > 0 ? E164_REGEX.test(value) : true;
     onValidationChange?.(isValid);
-  }, [value, didInit, onChangeText, onValidationChange]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value, didInit]);
 
   return (
     <div className="relative">

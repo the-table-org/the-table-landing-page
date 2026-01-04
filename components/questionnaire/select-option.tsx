@@ -8,7 +8,11 @@ interface SelectOptionProps {
   onPress: () => void;
 }
 
-export function SelectOption({ option, isSelected, onPress }: SelectOptionProps) {
+export function SelectOption({
+  option,
+  isSelected,
+  onPress,
+}: SelectOptionProps) {
   return (
     <button
       type="button"
@@ -20,7 +24,9 @@ export function SelectOption({ option, isSelected, onPress }: SelectOptionProps)
             : "bg-card border-border hover:border-primary/30 hover:bg-accent/50"
         }`}
     >
-      <span className={`text-base font-medium ${isSelected ? "text-primary-foreground" : "text-foreground"}`}>
+      <span
+        className={`text-base font-medium ${isSelected ? "text-primary-foreground" : "text-foreground"}`}
+      >
         {option.label}
       </span>
       {isSelected && (

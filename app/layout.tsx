@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Crimson_Pro } from "next/font/google";
 import "./globals.css";
-import { Analytics } from "@vercel/analytics/next"
+import { Analytics } from "@vercel/analytics/next";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -16,8 +16,10 @@ const crimsonPro = Crimson_Pro({
 });
 
 export const metadata: Metadata = {
-  title: "The Table App | Curated Dinner Experiences & Meaningful Connections in London",
-  description: "Join The Table App to connect with curious minds through curated dinner experiences at London's best restaurants. Where every dinner is an introduction and connection deserves a seat.",
+  title:
+    "The Table App | Curated Dinner Experiences & Meaningful Connections in London",
+  description:
+    "Join The Table App to connect with curious minds through curated dinner experiences at London's best restaurants. Where every dinner is an introduction and connection deserves a seat.",
 };
 
 export default function RootLayout({
@@ -27,9 +29,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${inter.variable} ${crimsonPro.variable} antialiased`}
-      >
+      <body className={`${inter.variable} ${crimsonPro.variable} antialiased`}>
         {children}
         <Analytics />
       </body>
