@@ -1,12 +1,12 @@
 "use client";
 
 import {Button} from "@/components/ui/button";
+import {Input} from "@/components/ui/input";
 import Image from "next/image";
 import Link from "next/link";
 import {motion, useScroll, useTransform, useInView} from "framer-motion";
 import {useEffect, useRef, useState} from "react";
 import {WritingText} from "@/components/animate-ui/text/writing";
-import {BorderTrail} from "@/components/animate-ui/effects/border-trail";
 
 function SectionHeader({badge, title}: { badge: string; title: string }) {
     const ref = useRef(null);
@@ -237,18 +237,23 @@ export default function Home() {
                                     </motion.p>
                                 </motion.div>
                                 <motion.div
-                                    className="flex flex-col gap-4 items-center"
+                                    className="flex flex-col gap-4 items-center w-full max-w-md"
                                     initial={{opacity: 0, y: 20}}
                                     animate={{opacity: 1, y: 0}}
                                     transition={{duration: 0.8, delay: 0.6, ease: "easeOut"}}
                                 >
-                                    <Button
-                                        asChild
-                                        size="lg"
-                                    >
-                                        <Link href="/questionnaire">Join our Guestlist</Link>
-                                    </Button>
-                                    <p className="text-muted-foreground/70 text-xs leading-relaxed max-w-md">
+                                    <div className="flex w-full gap-2">
+                                        <Input
+                                            type="email"
+                                            placeholder="Enter your email"
+                                            className="flex-1"
+                                            autoComplete="email"
+                                        />
+                                        <Button>
+                                            Join our Guestlist
+                                        </Button>
+                                    </div>
+                                    <p className="text-muted-foreground/70 text-xs leading-relaxed max-w-md text-center">
                                         We&apos;re currently curating dinners at London&apos;s best restaurants.
                                         You&apos;ll be the first to know when tables drop.
                                     </p>
