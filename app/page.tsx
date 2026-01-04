@@ -116,6 +116,7 @@ export default function Home() {
     useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const [userId, setUserId] = useState<string | null>(null);
 
   useEffect(() => {
     const sections = document.querySelectorAll("section[id]");
@@ -153,46 +154,59 @@ export default function Home() {
   };
 
   const handleJoinGuestlist = async () => {
-    /* setError("");
+    setError("");
 
-        if (!email || !email.includes("@")) {
-            setError("Please enter a valid email address");
-            return;
-        }
+    if (!email || !email.includes("@")) {
+      setError("Please enter a valid email address");
+      return;
+    }
 
-        setIsLoading(true);
-        setIsOtpModalOpen(true);
+    setIsLoading(true);
 
-        try {
-            const {error} = await supabase.auth.signInWithOtp({
-                email: email,
-                options: {
-                    shouldCreateUser: true,
-                }
-            });
+    try {
+      const { error } = await supabase.auth.signInWithOtp({
+        email: email,
+        options: {
+          shouldCreateUser: true,
+        },
+      });
 
-            if (error) throw error;
+      if (error) throw error;
 
-            setIsOtpModalOpen(true);
-        } catch (err: any) {
-            setError(err.message || "Failed to send verification code. Please try again.");
-        } finally {
-            setIsLoading(false);
-        }*/
-    setIsQuestionnaireModalOpen(true);
+      setIsOtpModalOpen(true);
+    } catch (err: any) {
+      setError(
+        err.message || "Failed to send verification code. Please try again."
+      );
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleVerifyOtp = async (otp: string) => {
     setIsLoading(true);
 
     try {
-      const { error } = await supabase.auth.verifyOtp({
+      const { data, error } = await supabase.auth.verifyOtp({
         email: email,
         token: otp,
         type: "email",
       });
 
       if (error) throw error;
+
+      if (!data.user) {
+        throw new Error("No user data returned after verification");
+      }
+
+      setUserId(data.user.id);
+
+      await supabase.auth.updateUser({
+        data: {
+          is_email_verified: true,
+          status: "email_verified",
+        },
+      });
 
       setIsOtpModalOpen(false);
       setIsQuestionnaireModalOpen(true);
@@ -646,6 +660,7 @@ export default function Home() {
         isOpen={isQuestionnaireModalOpen}
         onClose={() => setIsQuestionnaireModalOpen(false)}
         userEmail={email}
+        userId={userId}
       />
     </div>
   );

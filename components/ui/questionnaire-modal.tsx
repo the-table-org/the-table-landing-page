@@ -61,6 +61,7 @@ interface QuestionnaireModalProps {
   isOpen: boolean;
   onClose: () => void;
   userEmail: string;
+  userId: string | null;
 }
 
 function isLikelyLinkedInUrl(input: string): boolean {
@@ -82,6 +83,7 @@ export function QuestionnaireModal({
   isOpen,
   onClose,
   userEmail,
+  userId,
 }: QuestionnaireModalProps) {
   console.log("[QuestionnaireModal] Render - isOpen:", isOpen);
 
@@ -211,14 +213,103 @@ export function QuestionnaireModal({
     }
   };
 
+  const buildApplicationData = () => {
+    const applicationData: any = {
+      questions: [],
+      submitted_at: new Date().toISOString(),
+    };
+
+    for (const question of questions) {
+      const answer = answers[question.slug];
+      const section = sections.find((s) => s.id === question.section_id);
+
+      const questionSnapshot = {
+        id: question.id,
+        slug: question.slug,
+        label: question.label,
+        type: question.type,
+        required: question.required || false,
+        placeholder: question.placeholder,
+        group: question.group,
+        description: question.description,
+        order: question.order,
+        section: section
+          ? {
+              id: section.id,
+              title: section.title,
+              description: section.description,
+              order: section.order,
+            }
+          : null,
+      };
+
+      let answerData: any = {
+        type: question.type,
+        value: answer,
+      };
+
+      if (question.type === "select" && answer) {
+        const selectedOption = question.application_question_options?.find(
+          (opt) => opt.value === answer
+        );
+        if (selectedOption) {
+          answerData.selected_option = {
+            value: selectedOption.value,
+            label: selectedOption.label,
+          };
+        }
+      } else if (question.type === "multi-select" && Array.isArray(answer)) {
+        const selectedOptions = question.application_question_options
+          ?.filter((opt) => answer.includes(opt.value))
+          .map((opt) => ({
+            value: opt.value,
+            label: opt.label,
+          }));
+        answerData.selected_options = selectedOptions || [];
+      }
+
+      applicationData.questions.push({
+        question: questionSnapshot,
+        answer: answerData,
+      });
+    }
+
+    return applicationData;
+  };
+
   const handleSubmit = async () => {
     setSubmitStatus("loading");
 
     try {
-      console.log("Submitting answers:", answers);
+      if (!userId) {
+        throw new Error("User ID is required to submit the application");
+      }
 
-      // TODO: Implement actual submission to Supabase
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      const applicationData = buildApplicationData();
+
+      const { data: applicationRecord, error: appError } = await supabase
+        .from("applications")
+        .insert({ user_id: userId })
+        .select("id")
+        .single();
+
+      if (appError) throw appError;
+
+      const { error: answersError } = await supabase
+        .from("application_answers")
+        .insert({
+          application_id: applicationRecord.id,
+          data: applicationData,
+        });
+
+      if (answersError) throw answersError;
+
+      await supabase.auth.updateUser({
+        data: {
+          is_email_verified: true,
+          status: "pending",
+        },
+      });
 
       setSubmitStatus("success");
 
