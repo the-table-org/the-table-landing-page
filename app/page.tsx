@@ -20,9 +20,9 @@ function SectionHeader({ badge, title }: { badge: string; title: string }) {
     <div ref={ref} className="mb-12 md:mb-16 space-y-4 text-center">
       <motion.div
         className="mx-auto flex w-fit items-center justify-center"
-        initial={{ opacity: 0, y: 20 }}
-        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
+        initial={{ opacity: 0, y: 20, scale: 0.95 }}
+        animate={isInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 20, scale: 0.95 }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       >
         <div className="flex items-center gap-3">
           <div className="h-px w-12 bg-linear-to-r from-transparent to-border"></div>
@@ -36,9 +36,9 @@ function SectionHeader({ badge, title }: { badge: string; title: string }) {
       </motion.div>
       <motion.h2
         className="font-display font-black text-3xl text-foreground uppercase tracking-tight sm:text-4xl"
-        initial={{ opacity: 0, y: 20 }}
-        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-        transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
+        initial={{ opacity: 0, y: 20, scale: 0.95 }}
+        animate={isInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 20, scale: 0.95 }}
+        transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
       >
         {title}
       </motion.h2>
@@ -59,13 +59,14 @@ function AnimatedCard({
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 50 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+      initial={{ opacity: 0, y: 60, scale: 0.95 }}
+      animate={isInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 60, scale: 0.95 }}
       transition={{
-        duration: 0.7,
+        duration: 0.9,
         delay: isInView ? delay : 0,
-        ease: [0.22, 1, 0.36, 1],
+        ease: [0.16, 1, 0.3, 1],
       }}
+      whileHover={{ y: -4, transition: { duration: 0.3, ease: [0.16, 1, 0.3, 1] } }}
       className="flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card"
     >
       {children}
@@ -84,7 +85,7 @@ function AnimatedPhilosophy() {
           className="text-base text-muted-foreground leading-relaxed"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
           In a world of surface-level interactions, we&apos;re building
           something deeper. We believe food is more than fuel, it&apos;s a
@@ -95,7 +96,7 @@ function AnimatedPhilosophy() {
           className="text-base text-muted-foreground leading-relaxed"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.6, delay: 0.15, ease: "easeOut" }}
+          transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
         >
           The Table App exists to bring curious minds together through shared
           dinners that remind us what it means to be in community.
@@ -301,9 +302,9 @@ export default function Home() {
               <div className="flex max-w-5xl flex-col items-center justify-center space-y-10">
                 <motion.div
                   className="space-y-6"
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, ease: "easeOut" }}
+                  initial={{ opacity: 0, y: 40, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
                 >
                   <h1 className="font-display text-4xl text-foreground uppercase sm:text-5xl md:text-6xl lg:text-7xl font-black">
                     <WritingText
@@ -324,7 +325,7 @@ export default function Home() {
                     className="mx-auto max-w-[700px] text-muted-foreground text-base leading-relaxed md:text-lg"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+                    transition={{ duration: 0.9, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
                   >
                     At The Table, we believe the most meaningful conversations
                     happen when thoughtfully chosen people gather around a table
@@ -333,9 +334,9 @@ export default function Home() {
                 </motion.div>
                 <motion.div
                   className="flex flex-col gap-4 items-center w-full max-w-md px-4 sm:px-0"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
+                  initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  transition={{ duration: 0.9, delay: 0.7, ease: [0.16, 1, 0.3, 1] }}
                 >
                   <div className="flex w-full flex-col gap-2">
                     <div className="flex w-full flex-col sm:flex-row gap-2">
@@ -533,9 +534,21 @@ export default function Home() {
 
       <footer className="w-full overflow-hidden bg-primary py-12 md:py-16">
         <div className="container mx-auto px-4 md:px-6">
-          <div className="rounded-xl border border-primary-foreground/10 bg-primary-foreground/5 p-6 md:p-8">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+            className="rounded-xl border border-primary-foreground/10 bg-primary-foreground/5 p-6 md:p-8"
+          >
             <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-              <div className="space-y-3">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+                className="space-y-3"
+              >
                 <Link
                   className="inline-block font-display font-black text-2xl text-primary-foreground uppercase tracking-tighter transition-opacity hover:opacity-80"
                   href="/"
@@ -545,8 +558,14 @@ export default function Home() {
                 <p className="max-w-xs text-primary-foreground/70 text-sm tracking-tighter">
                   Where every dinner is an introduction.
                 </p>
-              </div>
-              <div className="space-y-4">
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                className="space-y-4"
+              >
                 <h3 className="font-extrabold text-primary-foreground text-sm uppercase tracking-wider">
                   Download the Table App
                 </h3>
@@ -580,9 +599,15 @@ export default function Home() {
                     </a>
                   </Button>
                 </div>
-              </div>
+              </motion.div>
 
-              <div className="space-y-4">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                className="space-y-4"
+              >
                 <h3 className="font-extrabold text-primary-foreground text-sm uppercase tracking-wider">
                   Follow us
                 </h3>
@@ -616,10 +641,16 @@ export default function Home() {
                     </a>
                   </Button>
                 </div>
-              </div>
+              </motion.div>
             </div>
 
-            <div className="mt-8 flex flex-col items-start justify-between gap-4 border-primary-foreground/10 border-t pt-6 text-primary-foreground/60 text-xs tracking-tighter sm:flex-row sm:items-center">
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              className="mt-8 flex flex-col items-start justify-between gap-4 border-primary-foreground/10 border-t pt-6 text-primary-foreground/60 text-xs tracking-tighter sm:flex-row sm:items-center"
+            >
               <p>© 2026 The Table App Ltd. All rights reserved.</p>
               <div className="flex gap-4">
                 <a
@@ -635,8 +666,8 @@ export default function Home() {
                   Privacy
                 </a>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </footer>
 
