@@ -314,7 +314,8 @@ export default function Home() {
                         duration: 1.5,
                         delay: 0.05,
                       }}
-                      spacing={20}
+                      spacing="0.5rem"
+                      className="sm:spacing-[1rem] md:spacing-[1.25rem]"
                       inView={true}
                       inViewOnce={true}
                     />
@@ -331,13 +332,13 @@ export default function Home() {
                   </motion.p>
                 </motion.div>
                 <motion.div
-                  className="flex flex-col gap-4 items-center w-full max-w-md"
+                  className="flex flex-col gap-4 items-center w-full max-w-md px-4 sm:px-0"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
                 >
                   <div className="flex w-full flex-col gap-2">
-                    <div className="flex w-full gap-2">
+                    <div className="flex w-full flex-col sm:flex-row gap-2">
                       <Input
                         type="email"
                         placeholder="Enter your email"

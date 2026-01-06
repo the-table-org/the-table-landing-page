@@ -477,20 +477,20 @@ export function QuestionnaireModal({
     return (
       <Dialog open={isOpen} onOpenChange={handleClose}>
         <DialogContent
-          className="!w-[600px] !max-w-[600px] !h-[600px] p-0 bg-muted rounded-xl overflow-hidden flex flex-col"
+          className="!w-[95vw] sm:!w-[600px] !max-w-[600px] !h-[90vh] sm:!h-[600px] p-0 bg-muted rounded-xl overflow-hidden flex flex-col"
           showCloseButton={false}
           onInteractOutside={(e) => e.preventDefault()}
         >
           <div className="p-1 flex flex-col h-full">
             <div className="rounded-xl border bg-background flex flex-col h-full overflow-hidden">
-              <div className="flex-1 flex flex-col items-center justify-center px-10 py-12">
+              <div className="flex-1 flex flex-col items-center justify-center px-6 sm:px-10 py-8 sm:py-12">
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 }}
                   className="text-center space-y-3 mb-8"
                 >
-                  <DialogTitle className="font-display font-black text-3xl text-foreground uppercase tracking-tight">
+                  <DialogTitle className="font-display font-black text-2xl sm:text-3xl text-foreground uppercase tracking-tight">
                     Application Submitted!
                   </DialogTitle>
                   <DialogDescription className="text-base text-muted-foreground leading-relaxed max-w-md">
@@ -543,14 +543,14 @@ export function QuestionnaireModal({
     return (
       <Dialog open={isOpen} onOpenChange={handleClose}>
         <DialogContent
-          className="!w-[600px] !max-w-[600px] !h-[600px] p-0 bg-muted rounded-xl overflow-hidden flex flex-col"
+          className="!w-[95vw] sm:!w-[600px] !max-w-[600px] !h-[90vh] sm:!h-[600px] p-0 bg-muted rounded-xl overflow-hidden flex flex-col"
           showCloseButton={false}
           onInteractOutside={(e) => e.preventDefault()}
         >
           <DialogTitle className="sr-only">Loading Questionnaire</DialogTitle>
           <div className="flex flex-col h-full">
             <div className="p-1 h-full">
-              <div className="rounded-xl border bg-background p-12 h-full">
+              <div className="rounded-xl border bg-background p-6 sm:p-12 h-full">
                 <div className="flex flex-col items-center justify-center text-center space-y-4 h-full">
                   <Spinner className="h-8 w-8 animate-spin text-foreground" />
                   <p className="text-sm text-muted-foreground">
@@ -570,14 +570,14 @@ export function QuestionnaireModal({
     return (
       <Dialog open={isOpen} onOpenChange={handleClose}>
         <DialogContent
-          className="!w-[600px] p-0 bg-muted rounded-xl"
+          className="!w-[95vw] sm:!w-[600px] p-0 bg-muted rounded-xl"
           showCloseButton={false}
           onInteractOutside={(e) => e.preventDefault()}
         >
           <DialogTitle className="sr-only">No Questions Available</DialogTitle>
           <div className="flex flex-col">
             <div className="p-1">
-              <div className="rounded-xl border bg-background p-12">
+              <div className="rounded-xl border bg-background p-6 sm:p-12">
                 <div className="flex flex-col items-center justify-center text-center space-y-4">
                   <p className="text-foreground text-lg">
                     No questions available
@@ -602,21 +602,21 @@ export function QuestionnaireModal({
     return (
       <Dialog open={isOpen} onOpenChange={handleClose}>
         <DialogContent
-          className="!w-[600px] !max-w-[600px] !h-[600px] p-0 bg-muted rounded-xl overflow-hidden flex flex-col"
+          className="!w-[95vw] sm:!w-[600px] !max-w-[600px] !h-[90vh] sm:!h-[600px] p-0 bg-muted rounded-xl overflow-hidden flex flex-col"
           showCloseButton={true}
           onInteractOutside={(e) => e.preventDefault()}
         >
           <div className="p-1 flex flex-col h-full">
             <div className="rounded-xl border bg-background flex flex-col h-full overflow-hidden">
               {/* Content Area */}
-              <div className="flex-1 flex flex-col justify-center px-10">
+              <div className="flex-1 flex flex-col justify-center px-6 sm:px-10">
                 <div className="space-y-6 max-w-md">
                   {section.icon && (
                     <div className="text-5xl">{section.icon}</div>
                   )}
 
                   <DialogHeader className="space-y-3">
-                    <DialogTitle className="font-display font-black text-3xl text-foreground uppercase tracking-tight text-left">
+                    <DialogTitle className="font-display font-black text-2xl sm:text-3xl text-foreground uppercase tracking-tight text-left">
                       {section.title}
                     </DialogTitle>
                     {section.description && (
@@ -629,7 +629,7 @@ export function QuestionnaireModal({
               </div>
 
               {/* Footer */}
-              <div className="px-10 py-6 border-t border-border flex-shrink-0">
+              <div className="px-6 sm:px-10 py-4 sm:py-6 border-t border-border flex-shrink-0">
                 <div className="flex items-center justify-between gap-4">
                   {currentStepIndex > 0 ? (
                     <Button onClick={handleBack} variant="outline" size="lg">
@@ -676,16 +676,16 @@ export function QuestionnaireModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent
-        className="!w-[600px] !max-w-[600px] !h-[600px] p-0 bg-muted rounded-xl overflow-hidden flex flex-col"
-        showCloseButton={true}
-        onInteractOutside={(e) => e.preventDefault()}
-      >
+        <DialogContent
+          className="!w-[95vw] sm:!w-[600px] !max-w-[600px] !h-[90vh] sm:!h-[600px] p-0 bg-muted rounded-xl overflow-hidden flex flex-col"
+          showCloseButton={true}
+          onInteractOutside={(e) => e.preventDefault()}
+        >
         <div className="p-1 flex flex-col h-full">
           <div className="rounded-xl border bg-background flex flex-col h-full overflow-hidden">
             {/* Header */}
-            <DialogHeader className="px-10 pt-6 pb-4 flex-shrink-0 space-y-0">
-              <div className="flex items-center gap-3 mb-6">
+            <DialogHeader className="px-4 sm:px-10 pt-4 sm:pt-6 pb-3 sm:pb-4 flex-shrink-0 space-y-0">
+              <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
                 <Badge variant="secondary" className="text-xs font-medium">
                   {currentSection?.title || "Section"}
                 </Badge>
@@ -708,7 +708,7 @@ export function QuestionnaireModal({
                   </div>
                 )}
 
-                <DialogTitle className="font-display font-black text-2xl text-foreground uppercase tracking-tight mb-2">
+                <DialogTitle className="font-display font-black text-xl sm:text-2xl text-foreground uppercase tracking-tight mb-2">
                   {currentQuestion.label}
                   {currentQuestion.required && (
                     <span className="text-destructive"> *</span>
@@ -735,16 +735,16 @@ export function QuestionnaireModal({
             </DialogHeader>
 
             {/* Scrollable Content */}
-            <div className="flex-1 min-h-0 overflow-y-auto px-10 py-2">
+            <div className="flex-1 min-h-0 overflow-y-auto px-4 sm:px-10 py-2">
               {renderInput(currentQuestion)}
             </div>
 
             {/* Footer */}
-            <div className="px-10 py-6 border-t border-border flex-shrink-0">
-              <div className="flex items-center justify-between gap-4">
+            <div className="px-4 sm:px-10 py-4 sm:py-6 border-t border-border flex-shrink-0">
+              <div className="flex items-center justify-between gap-2 sm:gap-4">
                 {currentStepIndex > 0 ? (
-                  <Button onClick={handleBack} variant="outline" size="lg">
-                    <ChevronLeft className="w-5 h-5 mr-1" />
+                  <Button onClick={handleBack} variant="outline" size="lg" className="text-sm sm:text-base">
+                    <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 mr-1" />
                     Back
                   </Button>
                 ) : (
@@ -755,6 +755,7 @@ export function QuestionnaireModal({
                   onClick={handleNext}
                   disabled={!isCurrentStepValid() || submitStatus === "loading"}
                   size="lg"
+                  className="text-sm sm:text-base"
                   variant={
                     submitStatus === "error"
                       ? "destructive"
