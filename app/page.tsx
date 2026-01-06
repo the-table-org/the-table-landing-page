@@ -298,14 +298,14 @@ export default function Home() {
             style={{ opacity, scale }}
           >
             <div className="flex flex-col items-center justify-center text-center">
-              <div className="flex max-w-4xl flex-col items-center justify-center space-y-10">
+              <div className="flex max-w-5xl flex-col items-center justify-center space-y-10">
                 <motion.div
                   className="space-y-6"
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, ease: "easeOut" }}
                 >
-                  <h1 className="font-display text-4xl text-foreground uppercase tracking-tight sm:text-5xl md:text-6xl lg:text-7xl font-black">
+                  <h1 className="font-display text-4xl text-foreground uppercase sm:text-5xl md:text-6xl lg:text-7xl font-black">
                     <WritingText
                       text="Connection deserves a seat."
                       transition={{
@@ -314,6 +314,7 @@ export default function Home() {
                         duration: 1.5,
                         delay: 0.05,
                       }}
+                      spacing={20}
                       inView={true}
                       inViewOnce={true}
                     />
