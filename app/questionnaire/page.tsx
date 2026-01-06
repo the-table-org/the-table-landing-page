@@ -413,7 +413,7 @@ export default function QuestionnairePage() {
             <div className="flex-1 flex flex-col justify-center max-w-2xl mx-auto">
               <div className="text-center space-y-6">
                 {section.icon && <div className="text-6xl">{section.icon}</div>}
-                <h1 className="text-4xl font-serif font-semibold text-foreground leading-tight">
+                <h1 className="font-display text-4xl font-black text-foreground uppercase leading-tight">
                   {section.title}
                 </h1>
                 {section.description && (
@@ -521,7 +521,7 @@ export default function QuestionnairePage() {
               )}
 
               <div className="mb-6">
-                <h2 className="text-3xl font-serif font-semibold text-foreground mb-3 leading-tight">
+                <h2 className="font-display text-3xl font-black text-foreground uppercase mb-3 leading-tight">
                   {currentQuestion.label}
                   {currentQuestion.required && (
                     <span className="text-destructive"> *</span>

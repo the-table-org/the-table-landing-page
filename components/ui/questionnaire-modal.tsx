@@ -490,10 +490,10 @@ export function QuestionnaireModal({
                   transition={{ delay: 0.2 }}
                   className="text-center space-y-3 mb-8"
                 >
-                  <DialogTitle className="font-semibold text-3xl text-neutral-900 tracking-tight dark:text-neutral-50">
+                  <DialogTitle className="font-display font-black text-3xl text-foreground uppercase tracking-tight">
                     Application Submitted!
                   </DialogTitle>
-                  <DialogDescription className="text-base text-neutral-600 leading-relaxed dark:text-neutral-400 max-w-md">
+                  <DialogDescription className="text-base text-muted-foreground leading-relaxed max-w-md">
                     Thank you for applying. We&apos;ll review your application
                     and get back to you soon.
                   </DialogDescription>
@@ -506,15 +506,15 @@ export function QuestionnaireModal({
                   className="space-y-4 text-center"
                 >
                   <div className="space-y-2">
-                    <p className="text-sm font-medium text-neutral-900 dark:text-neutral-50">
+                    <p className="text-sm font-medium text-foreground">
                       Meanwhile, download The Table App
                     </p>
-                    <p className="text-xs text-neutral-600 dark:text-neutral-400">
+                    <p className="text-xs text-muted-foreground">
                       Scan the QR code to get started
                     </p>
                   </div>
 
-                  <div className="inline-block p-4 bg-white rounded-xl border border-black/5 dark:border-white/10">
+                  <div className="inline-block p-4 bg-card rounded-xl border border-border">
                     <QRCode
                       value="https://apps.apple.com/app/the-table-app/id6752313205"
                       size={180}
@@ -552,8 +552,8 @@ export function QuestionnaireModal({
             <div className="p-1 h-full">
               <div className="rounded-xl border bg-background p-12 h-full">
                 <div className="flex flex-col items-center justify-center text-center space-y-4 h-full">
-                  <Spinner className="h-8 w-8 animate-spin text-neutral-900 dark:text-neutral-50" />
-                  <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                  <Spinner className="h-8 w-8 animate-spin text-foreground" />
+                  <p className="text-sm text-muted-foreground">
                     Loading questionnaire...
                   </p>
                 </div>
@@ -579,7 +579,7 @@ export function QuestionnaireModal({
             <div className="p-1">
               <div className="rounded-xl border bg-background p-12">
                 <div className="flex flex-col items-center justify-center text-center space-y-4">
-                  <p className="text-neutral-900 text-lg dark:text-neutral-50">
+                  <p className="text-foreground text-lg">
                     No questions available
                   </p>
                   <Button onClick={handleClose}>Close</Button>
@@ -616,11 +616,11 @@ export function QuestionnaireModal({
                   )}
 
                   <DialogHeader className="space-y-3">
-                    <DialogTitle className="font-semibold text-3xl text-neutral-900 tracking-tight dark:text-neutral-50 text-left">
+                    <DialogTitle className="font-display font-black text-3xl text-foreground uppercase tracking-tight text-left">
                       {section.title}
                     </DialogTitle>
                     {section.description && (
-                      <DialogDescription className="text-base text-neutral-600 leading-relaxed dark:text-neutral-400 text-left">
+                      <DialogDescription className="text-base text-muted-foreground leading-relaxed text-left">
                         {section.description}
                       </DialogDescription>
                     )}
@@ -690,8 +690,8 @@ export function QuestionnaireModal({
                   {currentSection?.title || "Section"}
                 </Badge>
 
-                <div className="flex items-center gap-1 text-xs text-neutral-600 dark:text-neutral-400">
-                  <span className="font-medium text-neutral-900 dark:text-neutral-50">
+                <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                  <span className="font-medium text-foreground">
                     {currentQuestionIndexInSection}
                   </span>
                   <span>/</span>
@@ -702,13 +702,13 @@ export function QuestionnaireModal({
               <div>
                 {currentQuestion.group && (
                   <div className="mb-2">
-                    <span className="text-xs font-semibold text-neutral-600 uppercase tracking-wider dark:text-neutral-400">
+                    <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                       {currentQuestion.group}
                     </span>
                   </div>
                 )}
 
-                <DialogTitle className="font-semibold text-2xl text-neutral-900 tracking-tight dark:text-neutral-50 mb-2">
+                <DialogTitle className="font-display font-black text-2xl text-foreground uppercase tracking-tight mb-2">
                   {currentQuestion.label}
                   {currentQuestion.required && (
                     <span className="text-destructive"> *</span>
@@ -716,18 +716,18 @@ export function QuestionnaireModal({
                 </DialogTitle>
 
                 {currentQuestion.description && (
-                  <DialogDescription className="text-sm text-neutral-600 leading-relaxed dark:text-neutral-400">
+                  <DialogDescription className="text-sm text-muted-foreground leading-relaxed">
                     {currentQuestion.description}
                   </DialogDescription>
                 )}
 
                 {currentQuestion.type === "multi-select" && (
-                  <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-2 italic">
+                  <p className="text-xs text-muted-foreground mt-2 italic">
                     You can select multiple options
                   </p>
                 )}
                 {currentQuestion.type === "select" && (
-                  <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-2 italic">
+                  <p className="text-xs text-muted-foreground mt-2 italic">
                     Select one option
                   </p>
                 )}

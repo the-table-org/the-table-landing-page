@@ -79,12 +79,12 @@ export function OtpModal({
             <div className="rounded-xl border bg-background">
               <div className="flex flex-col items-center text-center px-6 pt-8 pb-6">
                 <DialogHeader className="space-y-3">
-                  <DialogTitle className="font-semibold text-2xl text-neutral-900 tracking-tight dark:text-neutral-50">
+                  <DialogTitle className="font-display font-black text-2xl text-foreground uppercase tracking-tight">
                     Verify your email
                   </DialogTitle>
-                  <DialogDescription className="text-sm text-neutral-600 leading-relaxed dark:text-neutral-400 max-w-sm mx-auto">
+                  <DialogDescription className="text-sm text-muted-foreground leading-relaxed max-w-sm mx-auto">
                     Please enter the 6-digit verification code we sent to{" "}
-                    <span className="font-medium text-neutral-900 dark:text-neutral-50">
+                    <span className="font-medium text-foreground">
                       {email}
                     </span>
                     . This code will expire in 15 minutes.
@@ -192,11 +192,11 @@ export function OtpModal({
                     </Button>
 
                     <div className="text-center">
-                      <p className="text-xs text-neutral-600 dark:text-neutral-400">
+                      <p className="text-xs text-muted-foreground">
                         Didn&apos;t receive the code?{" "}
                         <button
                           type="button"
-                          className="font-medium text-neutral-900 hover:underline dark:text-neutral-50"
+                          className="font-medium text-foreground hover:underline"
                           disabled={verifyStatus === "loading"}
                         >
                           Resend

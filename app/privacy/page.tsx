@@ -23,7 +23,7 @@ export default function PrivacyPolicy() {
             </svg>
             Back to Home
           </a>
-          <h1 className="text-4xl lg:text-5xl font-serif font-semibold text-foreground mb-4">
+          <h1 className="font-display text-4xl lg:text-5xl font-black text-foreground uppercase mb-4">
             Privacy Policy
           </h1>
           <p className="text-sm text-muted-foreground">
@@ -47,7 +47,7 @@ export default function PrivacyPolicy() {
             </p>
 
             <section>
-              <h2 className="text-2xl font-serif font-semibold text-foreground mb-4 mt-12">
+              <h2 className="font-display text-2xl font-black text-foreground uppercase mb-4 mt-12">
                 Interpretation and Definitions
               </h2>
 
@@ -135,7 +135,7 @@ export default function PrivacyPolicy() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-serif font-semibold text-foreground mb-4 mt-12">
+              <h2 className="font-display text-2xl font-black text-foreground uppercase mb-4 mt-12">
                 Collecting and Using Your Personal Data
               </h2>
 
@@ -493,7 +493,7 @@ export default function PrivacyPolicy() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-serif font-semibold text-foreground mb-4 mt-12">
+              <h2 className="font-display text-2xl font-black text-foreground uppercase mb-4 mt-12">
                 Disclosure of Your Personal Data
               </h2>
 
@@ -542,7 +542,7 @@ export default function PrivacyPolicy() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-serif font-semibold text-foreground mb-4 mt-12">
+              <h2 className="font-display text-2xl font-black text-foreground uppercase mb-4 mt-12">
                 Security of Your Personal Data
               </h2>
               <p>
@@ -555,7 +555,7 @@ export default function PrivacyPolicy() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-serif font-semibold text-foreground mb-4 mt-12">
+              <h2 className="font-display text-2xl font-black text-foreground uppercase mb-4 mt-12">
                 Children's Privacy
               </h2>
               <p>
@@ -577,7 +577,7 @@ export default function PrivacyPolicy() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-serif font-semibold text-foreground mb-4 mt-12">
+              <h2 className="font-display text-2xl font-black text-foreground uppercase mb-4 mt-12">
                 Links to Other Websites
               </h2>
               <p>
@@ -594,7 +594,7 @@ export default function PrivacyPolicy() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-serif font-semibold text-foreground mb-4 mt-12">
+              <h2 className="font-display text-2xl font-black text-foreground uppercase mb-4 mt-12">
                 Changes to this Privacy Policy
               </h2>
               <p>
@@ -615,7 +615,7 @@ export default function PrivacyPolicy() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-serif font-semibold text-foreground mb-4 mt-12">
+              <h2 className="font-display text-2xl font-black text-foreground uppercase mb-4 mt-12">
                 Contact Us
               </h2>
               <p>

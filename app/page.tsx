@@ -10,6 +10,7 @@ import { WritingText } from "@/components/animate-ui/text/writing";
 import { supabase } from "@/lib/supabase";
 import { OtpModal } from "@/components/ui/otp-modal";
 import { QuestionnaireModal } from "@/components/ui/questionnaire-modal";
+import {Logo} from "@/components/logo";
 
 function SectionHeader({ badge, title }: { badge: string; title: string }) {
   const ref = useRef(null);
@@ -24,17 +25,17 @@ function SectionHeader({ badge, title }: { badge: string; title: string }) {
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
         <div className="flex items-center gap-3">
-          <div className="h-px w-12 bg-linear-to-r from-transparent to-black/10 dark:to-white/10"></div>
-          <div className="flex items-center gap-2 rounded-lg border border-black/5 bg-black/2 px-3 py-1.5 dark:border-white/10 dark:bg-white/5">
-            <span className="font-medium text-black/60 text-xs dark:text-white/60">
+          <div className="h-px w-12 bg-linear-to-r from-transparent to-border"></div>
+          <div className="flex items-center gap-2 rounded-lg border border-border bg-muted/30 px-3 py-1.5">
+            <span className="font-medium text-muted-foreground text-xs uppercase tracking-wider">
               {badge}
             </span>
           </div>
-          <div className="h-px w-12 bg-linear-to-l from-transparent to-black/10 dark:to-white/10"></div>
+          <div className="h-px w-12 bg-linear-to-l from-transparent to-border"></div>
         </div>
       </motion.div>
       <motion.h2
-        className="font-semibold text-3xl text-neutral-900 tracking-tight sm:text-4xl dark:text-neutral-50"
+        className="font-display font-black text-3xl text-foreground uppercase tracking-tight sm:text-4xl"
         initial={{ opacity: 0, y: 20 }}
         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
@@ -65,7 +66,7 @@ function AnimatedCard({
         delay: isInView ? delay : 0,
         ease: [0.22, 1, 0.36, 1],
       }}
-      className="flex h-full flex-col overflow-hidden rounded-xl border border-black/5 bg-black/3 dark:border-white/10 dark:bg-white/10"
+      className="flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card"
     >
       {children}
     </motion.div>
@@ -80,7 +81,7 @@ function AnimatedPhilosophy() {
     <div ref={ref} className="mx-auto max-w-3xl">
       <div className="space-y-6 text-center">
         <motion.p
-          className="text-base text-neutral-600 leading-relaxed dark:text-neutral-400"
+          className="text-base text-muted-foreground leading-relaxed"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
@@ -91,7 +92,7 @@ function AnimatedPhilosophy() {
           basic human need.
         </motion.p>
         <motion.p
-          className="text-base text-neutral-600 leading-relaxed dark:text-neutral-400"
+          className="text-base text-muted-foreground leading-relaxed"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.6, delay: 0.15, ease: "easeOut" }}
@@ -229,16 +230,7 @@ export default function Home() {
                   className="flex items-center gap-2"
                   aria-label="The Table"
                 >
-                  <Image
-                    src="/icon.png"
-                    alt="The Table Logo"
-                    width={32}
-                    height={32}
-                    priority
-                  />
-                  <span className="font-bold text-2xl text-foreground tracking-tighter transition-colors">
-                    The Table App
-                  </span>
+                  <Logo className="w-32 h-16" />
                 </Link>
               </div>
               <div className="hidden items-center gap-1 lg:flex">
@@ -280,7 +272,7 @@ export default function Home() {
                     Our Philosophy
                   </Button>
                 </nav>
-                <div className="mx-3 h-4 w-px bg-black/10 dark:bg-white/10"></div>
+                <div className="mx-3 h-4 w-px bg-border"></div>
                 <Button size="sm" asChild>
                   <a
                     href="https://apps.apple.com/app/the-table-app/id6752313205"
@@ -313,7 +305,7 @@ export default function Home() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, ease: "easeOut" }}
                 >
-                  <h1 className="text-4xl text-foreground tracking-tight sm:text-5xl md:text-6xl lg:text-7xl font-semibold">
+                  <h1 className="font-display text-4xl text-foreground uppercase tracking-tight sm:text-5xl md:text-6xl lg:text-7xl font-black">
                     <WritingText
                       text="Connection deserves a seat."
                       transition={{
@@ -383,7 +375,7 @@ export default function Home() {
 
         <section
           id="how-it-works"
-          className="w-full overflow-hidden bg-white py-16 md:py-24 lg:py-32 dark:bg-black/3"
+          className="w-full overflow-hidden bg-card py-16 md:py-24 lg:py-32"
         >
           <div className="container mx-auto px-4 md:px-6">
             <SectionHeader badge="How it works" title="Basic Concept" />
@@ -394,16 +386,16 @@ export default function Home() {
                   <div className="flex flex-1 flex-col p-6">
                     <div className="mb-3 flex items-center justify-between">
                       <div className="flex items-center gap-2">
-                        <span className="font-mono text-[10px] text-black/40 tracking-tighter dark:text-white/40">
+                        <span className="font-mono text-[10px] text-muted-foreground/60 tracking-tighter">
                           01
                         </span>
                         <div className="h-px w-4 bg-[#A8F1F7]/30"></div>
                       </div>
                     </div>
-                    <h3 className="mb-1.5 font-semibold text-base text-black/80 tracking-tighter dark:text-white/80">
+                    <h3 className="mb-1.5 font-extrabold text-base text-foreground uppercase tracking-wide">
                       Join our Guestlist
                     </h3>
-                    <p className="mb-3 text-[11px] text-black/60 leading-relaxed tracking-tighter dark:text-white/60">
+                    <p className="mb-3 text-[11px] text-muted-foreground leading-relaxed tracking-tighter">
                       Start by telling us a bit about yourself. We review each
                       application to ensure a thoughtful fit.
                     </p>
@@ -413,16 +405,16 @@ export default function Home() {
                   <div className="flex flex-1 flex-col p-6">
                     <div className="mb-3 flex items-center justify-between">
                       <div className="flex items-center gap-2">
-                        <span className="font-mono text-[10px] text-black/40 tracking-tighter dark:text-white/40">
+                        <span className="font-mono text-[10px] text-muted-foreground/60 tracking-tighter">
                           02
                         </span>
                         <div className="h-px w-4 bg-[#A8F1F7]/30"></div>
                       </div>
                     </div>
-                    <h3 className="mb-1.5 font-semibold text-base text-black/80 tracking-tighter dark:text-white/80">
+                    <h3 className="mb-1.5 font-extrabold text-base text-foreground uppercase tracking-wide">
                       Request A Seat
                     </h3>
-                    <p className="mb-3 text-[11px] text-black/60 leading-relaxed tracking-tighter dark:text-white/60">
+                    <p className="mb-3 text-[11px] text-muted-foreground leading-relaxed tracking-tighter">
                       When a table drops, request a seat. Each table is curated
                       for 6 guests, based on shared interests.
                     </p>
@@ -432,16 +424,16 @@ export default function Home() {
                   <div className="flex flex-1 flex-col p-6">
                     <div className="mb-3 flex items-center justify-between">
                       <div className="flex items-center gap-2">
-                        <span className="font-mono text-[10px] text-black/40 tracking-tighter dark:text-white/40">
+                        <span className="font-mono text-[10px] text-muted-foreground/60 tracking-tighter">
                           03
                         </span>
                         <div className="h-px w-4 bg-[#A8F1F7]/30"></div>
                       </div>
                     </div>
-                    <h3 className="mb-1.5 font-semibold text-base text-black/80 tracking-tighter dark:text-white/80">
+                    <h3 className="mb-1.5 font-extrabold text-base text-foreground uppercase tracking-wide">
                       RSVP
                     </h3>
-                    <p className="mb-3 text-[11px] text-black/60 leading-relaxed tracking-tighter dark:text-white/60">
+                    <p className="mb-3 text-[11px] text-muted-foreground leading-relaxed tracking-tighter">
                       Confirm your spot, mark your calendar, and prepare for a
                       memorable dinner.
                     </p>
@@ -454,7 +446,7 @@ export default function Home() {
 
         <section
           id="what-is-required"
-          className="w-full overflow-hidden bg-white py-16 md:py-24 lg:py-32 dark:bg-black/3"
+          className="w-full overflow-hidden bg-card py-16 md:py-24 lg:py-32"
         >
           <div className="container mx-auto px-4 md:px-6">
             <SectionHeader
@@ -468,16 +460,16 @@ export default function Home() {
                   <div className="flex flex-1 flex-col p-6">
                     <div className="mb-3 flex items-center justify-between">
                       <div className="flex items-center gap-2">
-                        <span className="font-mono text-[10px] text-black/40 tracking-tighter dark:text-white/40">
+                        <span className="font-mono text-[10px] text-muted-foreground/60 tracking-tighter">
                           01
                         </span>
                         <div className="h-px w-4 bg-[#A8F1F7]/30"></div>
                       </div>
                     </div>
-                    <h3 className="mb-1.5 font-semibold text-base text-black/80 tracking-tighter dark:text-white/80">
+                    <h3 className="mb-1.5 font-extrabold text-base text-foreground uppercase tracking-wide">
                       Presence
                     </h3>
-                    <p className="mb-3 text-[11px] text-black/60 leading-relaxed tracking-tighter dark:text-white/60">
+                    <p className="mb-3 text-[11px] text-muted-foreground leading-relaxed tracking-tighter">
                       A rarity in today&#39;s world, bring your full self to the
                       table.
                     </p>
@@ -487,16 +479,16 @@ export default function Home() {
                   <div className="flex flex-1 flex-col p-6">
                     <div className="mb-3 flex items-center justify-between">
                       <div className="flex items-center gap-2">
-                        <span className="font-mono text-[10px] text-black/40 tracking-tighter dark:text-white/40">
+                        <span className="font-mono text-[10px] text-muted-foreground/60 tracking-tighter">
                           02
                         </span>
                         <div className="h-px w-4 bg-[#A8F1F7]/30"></div>
                       </div>
                     </div>
-                    <h3 className="mb-1.5 font-semibold text-base text-black/80 tracking-tighter dark:text-white/80">
+                    <h3 className="mb-1.5 font-extrabold text-base text-foreground uppercase tracking-wide">
                       Curiosity
                     </h3>
-                    <p className="mb-3 text-[11px] text-black/60 leading-relaxed tracking-tighter dark:text-white/60">
+                    <p className="mb-3 text-[11px] text-muted-foreground leading-relaxed tracking-tighter">
                       Memorable conversations begin with an open mind and a
                       curious spirit.
                     </p>
@@ -506,16 +498,16 @@ export default function Home() {
                   <div className="flex flex-1 flex-col p-6">
                     <div className="mb-3 flex items-center justify-between">
                       <div className="flex items-center gap-2">
-                        <span className="font-mono text-[10px] text-black/40 tracking-tighter dark:text-white/40">
+                        <span className="font-mono text-[10px] text-muted-foreground/60 tracking-tighter">
                           03
                         </span>
                         <div className="h-px w-4 bg-[#A8F1F7]/30"></div>
                       </div>
                     </div>
-                    <h3 className="mb-1.5 font-semibold text-base text-black/80 tracking-tighter dark:text-white/80">
+                    <h3 className="mb-1.5 font-extrabold text-base text-foreground uppercase tracking-wide">
                       Intention
                     </h3>
-                    <p className="mb-3 text-[11px] text-black/60 leading-relaxed tracking-tighter dark:text-white/60">
+                    <p className="mb-3 text-[11px] text-muted-foreground leading-relaxed tracking-tighter">
                       Commit, not just to the booking, but to the experience..
                     </p>
                   </div>
@@ -527,7 +519,7 @@ export default function Home() {
 
         <section
           id="philosophy"
-          className="w-full overflow-hidden bg-white py-16 md:py-24 lg:py-32 dark:bg-black/3"
+          className="w-full overflow-hidden bg-card py-16 md:py-24 lg:py-32"
         >
           <div className="container mx-auto px-4 md:px-6">
             <SectionHeader badge="Our Philosophy" title="Why We Gather" />
@@ -537,25 +529,23 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="w-full overflow-hidden bg-white py-12 md:py-16  dark:bg-black/3">
+      <footer className="w-full overflow-hidden bg-primary py-12 md:py-16">
         <div className="container mx-auto px-4 md:px-6">
-          <div className="rounded-xl border border-black/5 bg-black/3 p-6 md:p-8 dark:border-white/10 dark:bg-white/10">
+          <div className="rounded-xl border border-primary-foreground/10 bg-primary-foreground/5 p-6 md:p-8">
             <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
               <div className="space-y-3">
                 <Link
-                  className="inline-block font-semibold text-2xl text-black/80 tracking-tighter transition-opacity hover:opacity-80 dark:text-white/80"
+                  className="inline-block font-display font-black text-2xl text-primary-foreground uppercase tracking-tighter transition-opacity hover:opacity-80"
                   href="/"
                 >
-                  <span className="font-bold text-2xl text-black tracking-tighter transition-colors dark:text-white">
-                    The Table App
-                  </span>
+                  The Table App
                 </Link>
-                <p className="max-w-xs text-black/60 text-sm tracking-tighter dark:text-white/60">
+                <p className="max-w-xs text-primary-foreground/70 text-sm tracking-tighter">
                   Where every dinner is an introduction.
                 </p>
               </div>
               <div className="space-y-4">
-                <h3 className="font-medium text-black/80 text-sm tracking-tighter dark:text-white/80">
+                <h3 className="font-extrabold text-primary-foreground text-sm uppercase tracking-wider">
                   Download the Table App
                 </h3>
                 <div className="flex flex-wrap gap-3">
@@ -591,7 +581,7 @@ export default function Home() {
               </div>
 
               <div className="space-y-4">
-                <h3 className="font-medium text-black/80 text-sm tracking-tighter dark:text-white/80">
+                <h3 className="font-extrabold text-primary-foreground text-sm uppercase tracking-wider">
                   Follow us
                 </h3>
                 <div className="flex flex-wrap gap-3">
@@ -627,17 +617,17 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="mt-8 flex flex-col items-start justify-between gap-4 border-black/5 border-t pt-6 text-black/50 text-xs tracking-tighter sm:flex-row sm:items-center dark:border-white/10 dark:text-white/50">
+            <div className="mt-8 flex flex-col items-start justify-between gap-4 border-primary-foreground/10 border-t pt-6 text-primary-foreground/60 text-xs tracking-tighter sm:flex-row sm:items-center">
               <p>© 2026 The Table App Ltd. All rights reserved.</p>
               <div className="flex gap-4">
                 <a
-                  className="transition-colors hover:text-black/70 dark:hover:text-white/70"
+                  className="transition-colors hover:text-primary-foreground/80"
                   href="#"
                 >
                   Terms
                 </a>
                 <a
-                  className="transition-colors hover:text-black/70 dark:hover:text-white/70"
+                  className="transition-colors hover:text-primary-foreground/80"
                   href="/privacy"
                 >
                   Privacy
