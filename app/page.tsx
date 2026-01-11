@@ -47,11 +47,15 @@ function SectionHeader({ badge, title }: { badge: string; title: string }) {
   );
 }
 
-function AnimatedCard({
-  children,
+function AnimatedStep({
+  number,
+  title,
+  description,
   delay = 0,
 }: {
-  children: React.ReactNode;
+  number: string;
+  title: string;
+  description: string;
   delay?: number;
 }) {
   const ref = useRef(null);
@@ -60,17 +64,24 @@ function AnimatedCard({
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 60, scale: 0.95 }}
-      animate={isInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 60, scale: 0.95 }}
+      initial={{ opacity: 0, y: 30 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
       transition={{
-        duration: 0.9,
+        duration: 0.7,
         delay: isInView ? delay : 0,
         ease: [0.16, 1, 0.3, 1],
       }}
-      whileHover={{ y: -4, transition: { duration: 0.3, ease: [0.16, 1, 0.3, 1] } }}
-      className="flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card"
+      className="text-center"
     >
-      {children}
+      <span className="font-display text-6xl md:text-7xl text-foreground/10 font-black block mb-4">
+        {number}
+      </span>
+      <h3 className="font-display text-xl md:text-2xl text-foreground uppercase font-black mb-3">
+        {title}
+      </h3>
+      <p className="text-base text-foreground/70 leading-relaxed max-w-xs mx-auto">
+        {description}
+      </p>
     </motion.div>
   );
 }
@@ -322,11 +333,11 @@ export default function Home() {
 
         <section
           id="how-it-works"
-          className="w-full overflow-hidden bg-card py-16 md:py-24 lg:py-32"
+          className="w-full overflow-hidden bg-card py-20 md:py-28 lg:py-36"
         >
           <div className="container mx-auto px-4 md:px-6">
             <motion.h2
-              className="font-display text-4xl md:text-5xl uppercase text-center mb-12 font-black"
+              className="font-display text-4xl md:text-5xl uppercase text-center mb-16 md:mb-20 font-black"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -335,53 +346,26 @@ export default function Home() {
               THE PROCESS
             </motion.h2>
 
-            <div className="mx-auto max-w-5xl">
-              <div className="grid grid-cols-1 gap-8 md:gap-8 lg:grid-cols-3">
-                <AnimatedCard delay={0.2}>
-                  <div className="flex flex-1 flex-col p-8">
-                    <div className="mb-4 flex items-center gap-3">
-                      <span className="font-mono text-4xl text-muted-foreground/30 font-bold">
-                        01
-                      </span>
-                    </div>
-                    <h3 className="mb-3 font-sans font-extrabold text-lg text-foreground uppercase tracking-wide">
-                      APPLY.
-                    </h3>
-                    <p className="text-base text-foreground/80 leading-relaxed font-sans">
-                      Join our guestlist by completing our intentional questionnaire. We review each application to ensure a thoughtful fit.
-                    </p>
-                  </div>
-                </AnimatedCard>
-                <AnimatedCard delay={0.4}>
-                  <div className="flex flex-1 flex-col p-8">
-                    <div className="mb-4 flex items-center gap-3">
-                      <span className="font-mono text-4xl text-muted-foreground/30 font-bold">
-                        02
-                      </span>
-                    </div>
-                    <h3 className="mb-3 font-sans font-extrabold text-lg text-foreground uppercase tracking-wide">
-                      REQUEST.
-                    </h3>
-                    <p className="text-base text-foreground/80 leading-relaxed font-sans">
-                      When a table drops at one of our hand-picked London restaurants, request your seat. Each table is curated for up to 6 guests based on shared interests.
-                    </p>
-                  </div>
-                </AnimatedCard>
-                <AnimatedCard delay={0.6}>
-                  <div className="flex flex-1 flex-col p-8">
-                    <div className="mb-4 flex items-center gap-3">
-                      <span className="font-mono text-4xl text-muted-foreground/30 font-bold">
-                        03
-                      </span>
-                    </div>
-                    <h3 className="mb-3 font-sans font-extrabold text-lg text-foreground uppercase tracking-wide">
-                      CONNECT.
-                    </h3>
-                    <p className="text-base text-foreground/80 leading-relaxed font-sans">
-                      Confirm your seat, mark your calendar and show up for a dinner designed to spark genuine conversation.
-                    </p>
-                  </div>
-                </AnimatedCard>
+            <div className="mx-auto max-w-4xl">
+              <div className="grid grid-cols-1 gap-16 md:gap-12 md:grid-cols-3">
+                <AnimatedStep
+                  number="01"
+                  title="APPLY"
+                  description="Join our guestlist by completing our intentional questionnaire. We review each application to ensure a thoughtful fit."
+                  delay={0.1}
+                />
+                <AnimatedStep
+                  number="02"
+                  title="REQUEST"
+                  description="When a table drops at one of our hand-picked London restaurants, request your seat. Each table is curated for up to 6 guests."
+                  delay={0.2}
+                />
+                <AnimatedStep
+                  number="03"
+                  title="CONNECT"
+                  description="Confirm your seat, mark your calendar and show up for a dinner designed to spark genuine conversation."
+                  delay={0.3}
+                />
               </div>
             </div>
           </div>
@@ -389,11 +373,11 @@ export default function Home() {
 
         <section
           id="what-is-required"
-          className="w-full overflow-hidden bg-background py-16 md:py-24 lg:py-32"
+          className="w-full overflow-hidden bg-card py-20 md:py-28 lg:py-36"
         >
           <div className="container mx-auto px-4 md:px-6">
             <motion.h2
-              className="font-display text-4xl md:text-5xl uppercase text-center mb-12 font-black"
+              className="font-display text-4xl md:text-5xl uppercase text-center mb-16 md:mb-20 font-black"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -402,61 +386,34 @@ export default function Home() {
               RULES OF ENGAGEMENT
             </motion.h2>
 
-            <div className="mx-auto max-w-5xl">
-              <div className="grid grid-cols-1 gap-8 md:gap-8 lg:grid-cols-3">
-                <AnimatedCard delay={0.2}>
-                  <div className="flex flex-1 flex-col p-8">
-                    <div className="mb-4 flex items-center gap-3">
-                      <span className="font-mono text-4xl text-muted-foreground/30 font-bold">
-                        01
-                      </span>
-                    </div>
-                    <h3 className="mb-3 font-sans font-extrabold text-lg text-foreground uppercase tracking-wide">
-                      PRESENCE.
-                    </h3>
-                    <p className="text-base text-foreground/80 leading-relaxed font-sans">
-                      Bring your full self to the table. Disconnect from your phone and be truly present with those around you.
-                    </p>
-                  </div>
-                </AnimatedCard>
-                <AnimatedCard delay={0.4}>
-                  <div className="flex flex-1 flex-col p-8">
-                    <div className="mb-4 flex items-center gap-3">
-                      <span className="font-mono text-4xl text-muted-foreground/30 font-bold">
-                        02
-                      </span>
-                    </div>
-                    <h3 className="mb-3 font-sans font-extrabold text-lg text-foreground uppercase tracking-wide">
-                      CURIOSITY.
-                    </h3>
-                    <p className="text-base text-foreground/80 leading-relaxed font-sans">
-                      Memorable conversations begin with an open mind and a curious spirit. Come ready to listen as much as you share.
-                    </p>
-                  </div>
-                </AnimatedCard>
-                <AnimatedCard delay={0.6}>
-                  <div className="flex flex-1 flex-col p-8">
-                    <div className="mb-4 flex items-center gap-3">
-                      <span className="font-mono text-4xl text-muted-foreground/30 font-bold">
-                        03
-                      </span>
-                    </div>
-                    <h3 className="mb-3 font-sans font-extrabold text-lg text-foreground uppercase tracking-wide">
-                      INTENTION.
-                    </h3>
-                    <p className="text-base text-foreground/80 leading-relaxed font-sans">
-                      Commit not only to the booking, but to the experience. You&apos;re not just showing up for yourself, but for your fellow diners too.
-                    </p>
-                  </div>
-                </AnimatedCard>
+            <div className="mx-auto max-w-4xl">
+              <div className="grid grid-cols-1 gap-16 md:gap-12 md:grid-cols-3">
+                <AnimatedStep
+                  number="01"
+                  title="PRESENCE"
+                  description="Bring your full self to the table. Disconnect from your phone and be truly present with those around you."
+                  delay={0.1}
+                />
+                <AnimatedStep
+                  number="02"
+                  title="CURIOSITY"
+                  description="Memorable conversations begin with an open mind and a curious spirit. Come ready to listen as much as you share."
+                  delay={0.2}
+                />
+                <AnimatedStep
+                  number="03"
+                  title="INTENTION"
+                  description="Commit not only to the booking, but to the experience. You're not just showing up for yourself, but for your fellow diners too."
+                  delay={0.3}
+                />
               </div>
               
               <motion.p
-                className="font-sans text-base md:text-lg text-center max-w-3xl mx-auto mt-12 text-foreground/70 italic"
+                className="font-sans text-base md:text-lg text-center max-w-2xl mx-auto mt-16 text-foreground/60 italic"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
               >
                 No pitching, selling or dating. Just show up as you are for a memorable experience with great food and non-transactional conversation.
               </motion.p>
