@@ -8,6 +8,7 @@ import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { WritingText } from "@/components/animate-ui/text/writing";
 import { supabase } from "@/lib/supabase";
+import { EmailModal } from "@/components/ui/email-modal";
 import { OtpModal } from "@/components/ui/otp-modal";
 import { QuestionnaireModal } from "@/components/ui/questionnaire-modal";
 import {Logo} from "@/components/logo";
@@ -113,6 +114,7 @@ export default function Home() {
   const scale = useTransform(scrollYProgress, [0, 0.2], [1, 0.95]);
 
   const [email, setEmail] = useState("");
+  const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
   const [isOtpModalOpen, setIsOtpModalOpen] = useState(false);
   const [isQuestionnaireModalOpen, setIsQuestionnaireModalOpen] =
     useState(false);
@@ -155,19 +157,17 @@ export default function Home() {
     }
   };
 
-  const handleJoinGuestlist = async () => {
-    setError("");
+  const handleJoinGuestlist = () => {
+    setIsEmailModalOpen(true);
+  };
 
-    if (!email || !email.includes("@")) {
-      setError("Please enter a valid email address");
-      return;
-    }
-
+  const handleEmailSubmit = async (emailValue: string) => {
+    setEmail(emailValue);
     setIsLoading(true);
 
     try {
       const { error } = await supabase.auth.signInWithOtp({
-        email: email,
+        email: emailValue,
         options: {
           shouldCreateUser: true,
         },
@@ -175,9 +175,10 @@ export default function Home() {
 
       if (error) throw error;
 
+      setIsEmailModalOpen(false);
       setIsOtpModalOpen(true);
     } catch (err: any) {
-      setError(
+      throw new Error(
         err.message || "Failed to send verification code. Please try again.",
       );
     } finally {
@@ -234,54 +235,13 @@ export default function Home() {
                   <Logo className="w-32 h-16" />
                 </Link>
               </div>
-              <div className="hidden items-center gap-1 lg:flex">
-                <nav className="group/nav flex items-center gap-1">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className={`text-muted-foreground hover:text-foreground transition-all duration-300 ${
-                      activeSection === "how-it-works"
-                        ? "text-foreground font-medium"
-                        : ""
-                    }`}
-                    onClick={() => scrollToSection("how-it-works")}
-                  >
-                    How it Works
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className={`text-muted-foreground hover:text-foreground transition-all duration-300 ${
-                      activeSection === "what-is-required"
-                        ? "text-foreground font-medium"
-                        : ""
-                    }`}
-                    onClick={() => scrollToSection("what-is-required")}
-                  >
-                    What is Required
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className={`text-muted-foreground hover:text-foreground transition-all duration-300 ${
-                      activeSection === "philosophy"
-                        ? "text-foreground font-medium"
-                        : ""
-                    }`}
-                    onClick={() => scrollToSection("philosophy")}
-                  >
-                    Our Philosophy
-                  </Button>
-                </nav>
-                <div className="mx-3 h-4 w-px bg-border"></div>
-                <Button size="sm" asChild>
-                  <a
-                    href="https://apps.apple.com/app/the-table-app/id6752313205"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Get The Table App
-                  </a>
+              <div className="flex items-center">
+                <Button
+                  onClick={handleJoinGuestlist}
+                  size="sm"
+                  className="font-extrabold uppercase tracking-wide"
+                >
+                  APPLY TO JOIN
                 </Button>
               </div>
             </div>
@@ -301,14 +261,22 @@ export default function Home() {
             <div className="flex flex-col items-center justify-center text-center">
               <div className="flex max-w-5xl flex-col items-center justify-center space-y-10">
                 <motion.div
-                  className="space-y-6"
+                  className="space-y-8"
                   initial={{ opacity: 0, y: 40, scale: 0.95 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
                 >
-                  <h1 className="font-display text-4xl text-foreground uppercase sm:text-5xl md:text-6xl lg:text-7xl font-black">
+                  <motion.p
+                    className="text-sm font-sans font-bold uppercase tracking-[0.2em] text-muted-foreground text-center"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.9, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                  >
+                    REAL CONNECTION BEGINS AT THE TABLE.
+                  </motion.p>
+                  <h1 className="font-display text-5xl text-foreground uppercase sm:text-6xl md:text-7xl lg:text-8xl font-black leading-none">
                     <WritingText
-                      text="Connection deserves a seat."
+                      text="TAKE YOUR SEAT AT THE TABLE."
                       transition={{
                         type: "spring",
                         bounce: 0,
@@ -322,53 +290,29 @@ export default function Home() {
                     />
                   </h1>
                   <motion.p
-                    className="mx-auto max-w-[700px] text-muted-foreground text-base leading-relaxed md:text-lg"
+                    className="mx-auto max-w-2xl text-foreground/80 text-lg leading-relaxed md:text-xl text-center"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.9, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
                   >
-                    At The Table, we believe the most meaningful conversations
-                    happen when thoughtfully chosen people gather around a table
-                    to share a meal together.
+                    Where every dinner is an introduction. We&apos;re on a mission to create greater human connection, one table at a time.
                   </motion.p>
                 </motion.div>
                 <motion.div
-                  className="flex flex-col gap-4 items-center w-full max-w-md px-4 sm:px-0"
+                  className="flex flex-col gap-6 items-center w-full max-w-md px-4 sm:px-0"
                   initial={{ opacity: 0, y: 20, scale: 0.95 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   transition={{ duration: 0.9, delay: 0.7, ease: [0.16, 1, 0.3, 1] }}
                 >
-                  <div className="flex w-full flex-col gap-2">
-                    <div className="flex w-full flex-col sm:flex-row gap-2">
-                      <Input
-                        type="email"
-                        placeholder="Enter your email"
-                        className="flex-1"
-                        autoComplete="email"
-                        value={email}
-                        onChange={(e) => {
-                          setEmail(e.target.value);
-                          setError("");
-                        }}
-                        disabled={isLoading}
-                      />
-                      <Button
-                        onClick={handleJoinGuestlist}
-                        disabled={isLoading}
-                      >
-                        {isLoading ? "Sending..." : "Join our Guestlist"}
-                      </Button>
-                    </div>
-                    {error && (
-                      <p className="text-sm text-red-500 text-center">
-                        {error}
-                      </p>
-                    )}
-                  </div>
-                  <p className="text-muted-foreground/70 text-xs leading-relaxed max-w-md text-center">
-                    We&apos;re currently curating dinners at London&apos;s best
-                    restaurants. You&apos;ll be the first to know when tables
-                    drop.
+                  <Button
+                    onClick={handleJoinGuestlist}
+                    size="xl"
+                    className="font-extrabold uppercase tracking-wide"
+                  >
+                    APPLY TO JOIN
+                  </Button>
+                  <p className="text-xs uppercase tracking-[0.15em] text-muted-foreground mt-2 text-center">
+                    Vetted. Platonic. Intentional.
                   </p>
                 </motion.div>
               </div>
@@ -381,64 +325,60 @@ export default function Home() {
           className="w-full overflow-hidden bg-card py-16 md:py-24 lg:py-32"
         >
           <div className="container mx-auto px-4 md:px-6">
-            <SectionHeader badge="How it works" title="Basic Concept" />
+            <motion.h2
+              className="font-display text-4xl md:text-5xl uppercase text-center mb-12 font-black"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            >
+              THE PROCESS
+            </motion.h2>
 
             <div className="mx-auto max-w-5xl">
-              <div className="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-3">
+              <div className="grid grid-cols-1 gap-8 md:gap-8 lg:grid-cols-3">
                 <AnimatedCard delay={0.2}>
-                  <div className="flex flex-1 flex-col p-6">
-                    <div className="mb-3 flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <span className="font-mono text-[10px] text-muted-foreground/60 tracking-tighter">
-                          01
-                        </span>
-                        <div className="h-px w-4 bg-[#A8F1F7]/30"></div>
-                      </div>
+                  <div className="flex flex-1 flex-col p-8">
+                    <div className="mb-4 flex items-center gap-3">
+                      <span className="font-mono text-4xl text-muted-foreground/30 font-bold">
+                        01
+                      </span>
                     </div>
-                    <h3 className="mb-1.5 font-extrabold text-base text-foreground uppercase tracking-wide">
-                      Join our Guestlist
+                    <h3 className="mb-3 font-sans font-extrabold text-lg text-foreground uppercase tracking-wide">
+                      APPLY.
                     </h3>
-                    <p className="mb-3 text-[11px] text-muted-foreground leading-relaxed tracking-tighter">
-                      Start by telling us a bit about yourself. We review each
-                      application to ensure a thoughtful fit.
+                    <p className="text-base text-foreground/80 leading-relaxed font-sans">
+                      Join our guestlist by completing our intentional questionnaire. We review each application to ensure a thoughtful fit.
                     </p>
                   </div>
                 </AnimatedCard>
                 <AnimatedCard delay={0.4}>
-                  <div className="flex flex-1 flex-col p-6">
-                    <div className="mb-3 flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <span className="font-mono text-[10px] text-muted-foreground/60 tracking-tighter">
-                          02
-                        </span>
-                        <div className="h-px w-4 bg-[#A8F1F7]/30"></div>
-                      </div>
+                  <div className="flex flex-1 flex-col p-8">
+                    <div className="mb-4 flex items-center gap-3">
+                      <span className="font-mono text-4xl text-muted-foreground/30 font-bold">
+                        02
+                      </span>
                     </div>
-                    <h3 className="mb-1.5 font-extrabold text-base text-foreground uppercase tracking-wide">
-                      Request A Seat
+                    <h3 className="mb-3 font-sans font-extrabold text-lg text-foreground uppercase tracking-wide">
+                      REQUEST.
                     </h3>
-                    <p className="mb-3 text-[11px] text-muted-foreground leading-relaxed tracking-tighter">
-                      When a table drops, request a seat. Each table is curated
-                      for 6 guests, based on shared interests.
+                    <p className="text-base text-foreground/80 leading-relaxed font-sans">
+                      When a table drops at one of our hand-picked London restaurants, request your seat. Each table is curated for up to 6 guests based on shared interests.
                     </p>
                   </div>
                 </AnimatedCard>
                 <AnimatedCard delay={0.6}>
-                  <div className="flex flex-1 flex-col p-6">
-                    <div className="mb-3 flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <span className="font-mono text-[10px] text-muted-foreground/60 tracking-tighter">
-                          03
-                        </span>
-                        <div className="h-px w-4 bg-[#A8F1F7]/30"></div>
-                      </div>
+                  <div className="flex flex-1 flex-col p-8">
+                    <div className="mb-4 flex items-center gap-3">
+                      <span className="font-mono text-4xl text-muted-foreground/30 font-bold">
+                        03
+                      </span>
                     </div>
-                    <h3 className="mb-1.5 font-extrabold text-base text-foreground uppercase tracking-wide">
-                      RSVP
+                    <h3 className="mb-3 font-sans font-extrabold text-lg text-foreground uppercase tracking-wide">
+                      CONNECT.
                     </h3>
-                    <p className="mb-3 text-[11px] text-muted-foreground leading-relaxed tracking-tighter">
-                      Confirm your spot, mark your calendar, and prepare for a
-                      memorable dinner.
+                    <p className="text-base text-foreground/80 leading-relaxed font-sans">
+                      Confirm your seat, mark your calendar and show up for a dinner designed to spark genuine conversation.
                     </p>
                   </div>
                 </AnimatedCard>
@@ -449,73 +389,77 @@ export default function Home() {
 
         <section
           id="what-is-required"
-          className="w-full overflow-hidden bg-card py-16 md:py-24 lg:py-32"
+          className="w-full overflow-hidden bg-background py-16 md:py-24 lg:py-32"
         >
           <div className="container mx-auto px-4 md:px-6">
-            <SectionHeader
-              badge="What is Required"
-              title="Rules of Engagement"
-            />
+            <motion.h2
+              className="font-display text-4xl md:text-5xl uppercase text-center mb-12 font-black"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            >
+              RULES OF ENGAGEMENT
+            </motion.h2>
 
             <div className="mx-auto max-w-5xl">
-              <div className="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-3">
+              <div className="grid grid-cols-1 gap-8 md:gap-8 lg:grid-cols-3">
                 <AnimatedCard delay={0.2}>
-                  <div className="flex flex-1 flex-col p-6">
-                    <div className="mb-3 flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <span className="font-mono text-[10px] text-muted-foreground/60 tracking-tighter">
-                          01
-                        </span>
-                        <div className="h-px w-4 bg-[#A8F1F7]/30"></div>
-                      </div>
+                  <div className="flex flex-1 flex-col p-8">
+                    <div className="mb-4 flex items-center gap-3">
+                      <span className="font-mono text-4xl text-muted-foreground/30 font-bold">
+                        01
+                      </span>
                     </div>
-                    <h3 className="mb-1.5 font-extrabold text-base text-foreground uppercase tracking-wide">
-                      Presence
+                    <h3 className="mb-3 font-sans font-extrabold text-lg text-foreground uppercase tracking-wide">
+                      PRESENCE.
                     </h3>
-                    <p className="mb-3 text-[11px] text-muted-foreground leading-relaxed tracking-tighter">
-                      A rarity in today&#39;s world, bring your full self to the
-                      table.
+                    <p className="text-base text-foreground/80 leading-relaxed font-sans">
+                      Bring your full self to the table. Disconnect from your phone and be truly present with those around you.
                     </p>
                   </div>
                 </AnimatedCard>
                 <AnimatedCard delay={0.4}>
-                  <div className="flex flex-1 flex-col p-6">
-                    <div className="mb-3 flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <span className="font-mono text-[10px] text-muted-foreground/60 tracking-tighter">
-                          02
-                        </span>
-                        <div className="h-px w-4 bg-[#A8F1F7]/30"></div>
-                      </div>
+                  <div className="flex flex-1 flex-col p-8">
+                    <div className="mb-4 flex items-center gap-3">
+                      <span className="font-mono text-4xl text-muted-foreground/30 font-bold">
+                        02
+                      </span>
                     </div>
-                    <h3 className="mb-1.5 font-extrabold text-base text-foreground uppercase tracking-wide">
-                      Curiosity
+                    <h3 className="mb-3 font-sans font-extrabold text-lg text-foreground uppercase tracking-wide">
+                      CURIOSITY.
                     </h3>
-                    <p className="mb-3 text-[11px] text-muted-foreground leading-relaxed tracking-tighter">
-                      Memorable conversations begin with an open mind and a
-                      curious spirit.
+                    <p className="text-base text-foreground/80 leading-relaxed font-sans">
+                      Memorable conversations begin with an open mind and a curious spirit. Come ready to listen as much as you share.
                     </p>
                   </div>
                 </AnimatedCard>
                 <AnimatedCard delay={0.6}>
-                  <div className="flex flex-1 flex-col p-6">
-                    <div className="mb-3 flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <span className="font-mono text-[10px] text-muted-foreground/60 tracking-tighter">
-                          03
-                        </span>
-                        <div className="h-px w-4 bg-[#A8F1F7]/30"></div>
-                      </div>
+                  <div className="flex flex-1 flex-col p-8">
+                    <div className="mb-4 flex items-center gap-3">
+                      <span className="font-mono text-4xl text-muted-foreground/30 font-bold">
+                        03
+                      </span>
                     </div>
-                    <h3 className="mb-1.5 font-extrabold text-base text-foreground uppercase tracking-wide">
-                      Intention
+                    <h3 className="mb-3 font-sans font-extrabold text-lg text-foreground uppercase tracking-wide">
+                      INTENTION.
                     </h3>
-                    <p className="mb-3 text-[11px] text-muted-foreground leading-relaxed tracking-tighter">
-                      Commit, not just to the booking, but to the experience..
+                    <p className="text-base text-foreground/80 leading-relaxed font-sans">
+                      Commit not only to the booking, but to the experience. You&apos;re not just showing up for yourself, but for your fellow diners too.
                     </p>
                   </div>
                 </AnimatedCard>
               </div>
+              
+              <motion.p
+                className="font-sans text-base md:text-lg text-center max-w-3xl mx-auto mt-12 text-foreground/70 italic"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              >
+                No pitching, selling or dating. Just show up as you are for a memorable experience with great food and non-transactional conversation.
+              </motion.p>
             </div>
           </div>
         </section>
@@ -525,131 +469,202 @@ export default function Home() {
           className="w-full overflow-hidden bg-card py-16 md:py-24 lg:py-32"
         >
           <div className="container mx-auto px-4 md:px-6">
-            <SectionHeader badge="Our Philosophy" title="Why We Gather" />
+            <motion.h2
+              className="font-display text-4xl md:text-5xl uppercase text-center mb-12 font-black"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            >
+              WHY WE GATHER
+            </motion.h2>
 
-            <AnimatedPhilosophy />
+            <div className="mx-auto max-w-3xl">
+              <div className="space-y-6 text-center">
+                <motion.p
+                  className="font-sans text-lg md:text-xl leading-relaxed text-center"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                >
+                  In a world of surface-level interactions, we&apos;re building something deeper. We believe food is more than fuel — it&apos;s a shared language. And connection is more than a buzzword, it&apos;s a basic human need.
+                </motion.p>
+                <motion.p
+                  className="font-sans text-lg md:text-xl leading-relaxed text-center"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                >
+                  The Table App exists to bring curious minds together through shared dinners that remind us what it means to be in community.
+                </motion.p>
+              </div>
+              
+              <motion.div
+                className="flex justify-center mt-12"
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <Logo className="w-24 h-24 text-primary" />
+              </motion.div>
+            </div>
           </div>
         </section>
       </main>
 
-      <footer className="w-full overflow-hidden bg-primary py-12 md:py-16">
+      <footer className="w-full overflow-hidden bg-primary py-16 md:py-20">
         <div className="container mx-auto px-4 md:px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-            className="rounded-xl border border-primary-foreground/10 bg-primary-foreground/5 p-6 md:p-8"
-          >
-            <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-                className="space-y-3"
-              >
-                <Link
-                  className="inline-block font-display font-black text-2xl text-primary-foreground uppercase tracking-tighter transition-opacity hover:opacity-80"
-                  href="/"
-                >
-                  The Table App
-                </Link>
-                <p className="max-w-xs text-primary-foreground/70 text-sm tracking-tighter">
-                  Where every dinner is an introduction.
+          <div className="max-w-6xl mx-auto space-y-16">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className="text-center space-y-6"
+            >
+              <h2 className="font-display text-2xl md:text-3xl uppercase text-primary-foreground font-black">
+                REAL CONNECTION BEGINS AT THE TABLE
+              </h2>
+              
+              <div className="space-y-4">
+                <p className="font-sans text-sm text-primary-foreground/80">
+                  Subscribe for table drops and London hidden gems.
                 </p>
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                className="space-y-4"
-              >
-                <h3 className="font-extrabold text-primary-foreground text-sm uppercase tracking-wider">
-                  Download the Table App
-                </h3>
-                <div className="flex flex-wrap gap-3">
-                  <Button asChild size="sm">
-                    <a
-                      href="https://apps.apple.com/app/the-table-app/id6752313205"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <svg
-                        className="size-5"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                      >
-                        <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z" />
-                      </svg>
-                      App Store
-                    </a>
-                  </Button>
-                  <Button asChild size="sm">
-                    <a href="#">
-                      <svg
-                        className="size-5"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                      >
-                        <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z" />
-                      </svg>
-                      Google Play
-                    </a>
+                <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+                  <Input
+                    type="email"
+                    placeholder="Enter your email"
+                    className="flex-1 focus-visible:border-input focus:text-input text-input bg-primary text-primary-foreground hover:bg-primary/90 shadow-[inset_0_2px_4px_rgba(255,255,255,0.3),0_4px_6px_-2px_rgba(16,24,40,0.1),0_2px_4px_-1px_rgba(16,24,40,0.06)]"
+                    disabled
+                  />
+                  <Button
+                    className="font-extrabold uppercase tracking-wide"
+                    disabled
+                  >
+                    SUBSCRIBE
                   </Button>
                 </div>
-              </motion.div>
+              </div>
+            </motion.div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.7, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                className="space-y-4"
-              >
-                <h3 className="font-extrabold text-primary-foreground text-sm uppercase tracking-wider">
-                  Follow us
-                </h3>
-                <div className="flex flex-wrap gap-3">
-                  <Button asChild size="icon">
-                    <a
-                      href="https://www.linkedin.com/company/thetableapp/"
-                      aria-label="LinkedIn"
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              className="flex flex-col md:flex-row items-center justify-center gap-12 md:gap-24"
+            >
+              <div className="space-y-3 text-center">
+                <p className="font-sans text-sm text-primary-foreground/70 uppercase tracking-wide">
+                  Download
+                </p>
+                <div className="flex justify-center gap-4">
+                  <a
+                    href="https://apps.apple.com/app/the-table-app/id6752313205"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary-foreground hover:text-primary-foreground/80 transition-colors"
+                    aria-label="Download on App Store"
+                  >
+                    <svg
+                      className="size-6"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
                     >
-                      <svg
-                        className="size-4"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                      >
-                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-                      </svg>
-                    </a>
-                  </Button>
-                  <Button asChild size="icon">
-                    <a
-                      href="https://www.instagram.com/thetableapp.co/"
-                      aria-label="Instagram"
+                      <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z" />
+                    </svg>
+                  </a>
+                  <a
+                    href="#"
+                    className="text-primary-foreground hover:text-primary-foreground/80 transition-colors"
+                    aria-label="Download on Google Play"
+                  >
+                    <svg
+                      className="size-6"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
                     >
-                      <svg
-                        className="size-4"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                      >
-                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-                      </svg>
-                    </a>
-                  </Button>
+                      <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z" />
+                    </svg>
+                  </a>
                 </div>
-              </motion.div>
-            </div>
+              </div>
+
+              <div className="space-y-3 text-center">
+                <p className="font-sans text-sm text-primary-foreground/70 uppercase tracking-wide">
+                  Contact
+                </p>
+                <a
+                  href="mailto:hello@thetableapp.co"
+                  className="font-sans text-base text-primary-foreground hover:text-primary-foreground/80 transition-colors block"
+                >
+                  hello@thetableapp.co
+                </a>
+              </div>
+              
+              <div className="space-y-3 text-center">
+                <p className="font-sans text-sm text-primary-foreground/70 uppercase tracking-wide">
+                  Follow Us
+                </p>
+                <div className="flex justify-center gap-4">
+                  <a
+                    href="https://www.instagram.com/thetableapp.co/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary-foreground hover:text-primary-foreground/80 transition-colors"
+                    aria-label="Instagram"
+                  >
+                    <svg
+                      className="size-6"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                    >
+                      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                    </svg>
+                  </a>
+                  <a
+                    href="https://www.linkedin.com/company/thetableapp/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary-foreground hover:text-primary-foreground/80 transition-colors"
+                    aria-label="LinkedIn"
+                  >
+                    <svg
+                      className="size-6"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                    >
+                      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                    </svg>
+                  </a>
+                  {/*<a
+                    href="https://www.tiktok.com/@thetableapp"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary-foreground hover:text-primary-foreground/80 transition-colors"
+                    aria-label="TikTok"
+                  >
+                    <svg
+                      className="size-6"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                    >
+                      <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" />
+                    </svg>
+                  </a>*/}
+                </div>
+              </div>
+            </motion.div>
 
             <motion.div
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="mt-8 flex flex-col items-start justify-between gap-4 border-primary-foreground/10 border-t pt-6 text-primary-foreground/60 text-xs tracking-tighter sm:flex-row sm:items-center"
+              transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              className="flex flex-col items-center justify-between gap-4 border-primary-foreground/20 border-t pt-8 text-primary-foreground/60 text-xs sm:flex-row"
             >
               <p>© 2026 The Table App Ltd. All rights reserved.</p>
               <div className="flex gap-4">
@@ -667,9 +682,20 @@ export default function Home() {
                 </a>
               </div>
             </motion.div>
-          </motion.div>
+          </div>
         </div>
       </footer>
+
+      <EmailModal
+        isOpen={isEmailModalOpen}
+        onClose={() => {
+          setIsEmailModalOpen(false);
+          setEmail("");
+          setError("");
+        }}
+        onSubmit={handleEmailSubmit}
+        isLoading={isLoading}
+      />
 
       <OtpModal
         isOpen={isOtpModalOpen}

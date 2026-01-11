@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   CheckCircle,
@@ -88,6 +89,7 @@ export function QuestionnaireModal({
 }: QuestionnaireModalProps) {
   console.log("[QuestionnaireModal] Render - isOpen:", isOpen);
 
+  const router = useRouter();
   const [questions, setQuestions] = useState<Question[]>([]);
   const [sections, setSections] = useState<Section[]>([]);
   const [steps, setSteps] = useState<Step[]>([]);
@@ -316,7 +318,7 @@ export function QuestionnaireModal({
       setSubmitStatus("success");
 
       setTimeout(() => {
-        setShowSuccessScreen(true);
+        router.push("/success");
       }, 1000);
     } catch (error) {
       console.error("Submission error:", error);
