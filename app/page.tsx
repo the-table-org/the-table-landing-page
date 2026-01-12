@@ -2,7 +2,6 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import Image from "next/image";
 import Link from "next/link";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
@@ -12,40 +11,7 @@ import { EmailModal } from "@/components/ui/email-modal";
 import { OtpModal } from "@/components/ui/otp-modal";
 import { QuestionnaireModal } from "@/components/ui/questionnaire-modal";
 import {Logo} from "@/components/logo";
-
-function SectionHeader({ badge, title }: { badge: string; title: string }) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-
-  return (
-    <div ref={ref} className="mb-12 md:mb-16 space-y-4 text-center">
-      <motion.div
-        className="mx-auto flex w-fit items-center justify-center"
-        initial={{ opacity: 0, y: 20, scale: 0.95 }}
-        animate={isInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 20, scale: 0.95 }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      >
-        <div className="flex items-center gap-3">
-          <div className="h-px w-12 bg-linear-to-r from-transparent to-border"></div>
-          <div className="flex items-center gap-2 rounded-lg border border-border bg-muted/30 px-3 py-1.5">
-            <span className="font-medium text-muted-foreground text-xs uppercase tracking-wider">
-              {badge}
-            </span>
-          </div>
-          <div className="h-px w-12 bg-linear-to-l from-transparent to-border"></div>
-        </div>
-      </motion.div>
-      <motion.h2
-        className="font-display font-black text-3xl text-foreground uppercase tracking-tight sm:text-4xl"
-        initial={{ opacity: 0, y: 20, scale: 0.95 }}
-        animate={isInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 20, scale: 0.95 }}
-        transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-      >
-        {title}
-      </motion.h2>
-    </div>
-  );
-}
+import {Icon} from "@/components/icon";
 
 function AnimatedStep({
   number,
@@ -86,40 +52,10 @@ function AnimatedStep({
   );
 }
 
-function AnimatedPhilosophy() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-
-  return (
-    <div ref={ref} className="mx-auto max-w-3xl">
-      <div className="space-y-6 text-center">
-        <motion.p
-          className="text-base text-muted-foreground leading-relaxed"
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        >
-          In a world of surface-level interactions, we&apos;re building
-          something deeper. We believe food is more than fuel, it&apos;s a
-          shared language. And connection is more than a buzzword, it&apos;s a
-          basic human need.
-        </motion.p>
-        <motion.p
-          className="text-base text-muted-foreground leading-relaxed"
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-        >
-          The Table App exists to bring curious minds together through shared
-          dinners that remind us what it means to be in community.
-        </motion.p>
-      </div>
-    </div>
-  );
-}
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState("hero");
+  const [isScrolled, setIsScrolled] = useState(false);
   const { scrollYProgress } = useScroll();
   const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
   const scale = useTransform(scrollYProgress, [0, 0.2], [1, 0.95]);
@@ -132,6 +68,15 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [userId, setUserId] = useState<string | null>(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   useEffect(() => {
     const sections = document.querySelectorAll("section[id]");
@@ -232,38 +177,72 @@ export default function Home() {
   };
 
   return (
-    <div className="bg-background text-foreground overflow-hidden">
-      <div className="fixed top-0 right-0 left-0 z-50 w-full">
-        <header className="relative z-50 w-full tracking-tighter transition-all duration-300 bg-background/80 backdrop-blur-sm">
-          <div className="relative mx-auto max-w-7xl px-6">
-            <div className="flex h-16 items-center justify-between gap-8">
-              <div className="flex items-center">
-                <Link
-                  href="/"
-                  className="flex items-center gap-2"
-                  aria-label="The Table"
-                >
-                  <Logo className="w-32 h-16" />
-                </Link>
-              </div>
-              <div className="flex items-center">
-                <Button
-                  onClick={handleJoinGuestlist}
-                  size="sm"
-                  className="font-extrabold uppercase tracking-wide"
-                >
-                  APPLY TO JOIN
-                </Button>
-              </div>
-            </div>
-          </div>
-        </header>
-      </div>
+    <div className="text-foreground overflow-hidden bg-card p-2">
+      <motion.div
+        className="z-50 flex justify-center pointer-events-none"
+        initial={false}
+        animate={{
+          position: isScrolled ? "fixed" : "absolute",
+          top: 8,
+          left: 8,
+          right: 8,
+        }}
+        transition={{ duration: 0 }}
+      >
+        <motion.header
+          className="relative z-50 tracking-tighter pointer-events-auto"
+          initial={false}
+          animate={{
+            width: isScrolled ? "30%" : "100%",
+            borderRadius: isScrolled ? 9999 : 12,
+            boxShadow: isScrolled
+              ? "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1)"
+              : "none",
+            backgroundColor: isScrolled ? "hsl(var(--background) / 0.95)" : "transparent",
+            backdropFilter: isScrolled ? "blur(12px)" : "blur(0px)",
+          }}
+          transition={{ type: "spring", stiffness: 300, damping: 30 }}
+        >
+          <motion.div
+            className="flex items-center justify-between"
+            initial={false}
+            animate={{
+              height: isScrolled ? 48 : 64,
+              paddingLeft: isScrolled ? 12 : 24,
+              paddingRight: isScrolled ? 12 : 24,
+              gap: isScrolled ? 24 : 16,
+            }}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+          >
+            <motion.div
+              className="flex items-center"
+              initial={false}
+              animate={{ scale: isScrolled ? 0.85 : 1 }}
+              transition={{ type: "spring", stiffness: 400, damping: 25 }}
+            >
+              <Link
+                href="/"
+                className="flex items-center gap-2"
+                aria-label="The Table"
+              >
+                <Logo className="w-28 h-12" />
+              </Link>
+            </motion.div>
+            <Button
+              onClick={handleJoinGuestlist}
+              size="sm"
+              className="font-extrabold uppercase tracking-wide"
+            >
+              APPLY TO JOIN
+            </Button>
+          </motion.div>
+        </motion.header>
+      </motion.div>
 
       <main className="relative min-h-screen w-full overflow-hidden scroll-smooth">
         <section
           id="hero"
-          className="relative w-full overflow-hidden bg-background min-h-screen flex items-center justify-center pt-16 pb-20"
+          className="relative w-full overflow-hidden bg-background min-h-[98vh] flex items-center justify-center rounded-xl"
         >
           <motion.div
             className="container relative mx-auto px-4 md:px-6"
@@ -317,7 +296,7 @@ export default function Home() {
                 >
                   <Button
                     onClick={handleJoinGuestlist}
-                    size="xl"
+                    size="lg"
                     className="font-extrabold uppercase tracking-wide"
                   >
                     APPLY TO JOIN
@@ -333,7 +312,7 @@ export default function Home() {
 
         <section
           id="how-it-works"
-          className="w-full overflow-hidden bg-card py-20 md:py-28 lg:py-36"
+          className="w-full overflow-hidden bg-card py-16 md:py-20 lg:py-24"
         >
           <div className="container mx-auto px-4 md:px-6">
             <motion.h2
@@ -373,7 +352,7 @@ export default function Home() {
 
         <section
           id="what-is-required"
-          className="w-full overflow-hidden bg-card py-20 md:py-28 lg:py-36"
+          className="w-full overflow-hidden bg-card py-16 md:py-20 lg:py-24"
         >
           <div className="container mx-auto px-4 md:px-6">
             <motion.h2
@@ -423,7 +402,7 @@ export default function Home() {
 
         <section
           id="philosophy"
-          className="w-full overflow-hidden bg-card py-16 md:py-24 lg:py-32"
+          className="w-full overflow-hidden bg-card py-12 md:py-16 lg:py-20"
         >
           <div className="container mx-auto px-4 md:px-6">
             <motion.h2
@@ -465,14 +444,14 @@ export default function Home() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
               >
-                <Logo className="w-24 h-24 text-primary" />
+                <Icon className="w-24 h-24" />
               </motion.div>
             </div>
           </div>
         </section>
       </main>
 
-      <footer className="w-full overflow-hidden bg-primary py-16 md:py-20">
+      <footer className="w-full overflow-hidden bg-primary py-16 md:py-20 rounded-xl mt-2">
         <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-6xl mx-auto space-y-16">
             <motion.div

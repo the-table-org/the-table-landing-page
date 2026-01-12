@@ -52,7 +52,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${dmSans.variable} ${griffithGothic.variable} antialiased`}>
+      <body className={`${dmSans.variable} ${griffithGothic.variable} antialiased bg-card`}>
         {children}
         <Analytics />
       </body>
