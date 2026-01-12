@@ -56,6 +56,7 @@ function AnimatedStep({
 export default function Home() {
   const [activeSection, setActiveSection] = useState("hero");
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const { scrollYProgress } = useScroll();
   const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
   const scale = useTransform(scrollYProgress, [0, 0.2], [1, 0.95]);
@@ -74,8 +75,17 @@ export default function Home() {
       setIsScrolled(window.scrollY > 50);
     };
 
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    handleResize();
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   useEffect(() => {
@@ -193,7 +203,7 @@ export default function Home() {
           className="relative z-50 tracking-tighter pointer-events-auto"
           initial={false}
           animate={{
-            width: isScrolled ? "30%" : "100%",
+            width: isScrolled ? (isMobile ? "auto" : "30%") : "100%",
             borderRadius: isScrolled ? 9999 : 12,
             boxShadow: isScrolled
               ? "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1)"
@@ -208,9 +218,9 @@ export default function Home() {
             initial={false}
             animate={{
               height: isScrolled ? 48 : 64,
-              paddingLeft: isScrolled ? 12 : 24,
+              paddingLeft: isScrolled ? 16 : 24,
               paddingRight: isScrolled ? 12 : 24,
-              gap: isScrolled ? 24 : 16,
+              gap: 16,
             }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
           >
@@ -231,7 +241,7 @@ export default function Home() {
             <Button
               onClick={handleJoinGuestlist}
               size="sm"
-              className="font-extrabold uppercase tracking-wide"
+              className="font-extrabold uppercase tracking-wide whitespace-nowrap"
             >
               APPLY TO JOIN
             </Button>
