@@ -56,7 +56,7 @@ function AnimatedStep({
 export default function Home() {
   const [activeSection, setActiveSection] = useState("hero");
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
   const { scrollYProgress } = useScroll();
   const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
   const scale = useTransform(scrollYProgress, [0, 0.2], [1, 0.95]);
@@ -76,7 +76,7 @@ export default function Home() {
     };
 
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
+      setIsSmallScreen(window.innerWidth < 1024);
     };
 
     handleResize();
@@ -203,7 +203,7 @@ export default function Home() {
           className="relative z-50 tracking-tighter pointer-events-auto"
           initial={false}
           animate={{
-            width: isScrolled ? (isMobile ? "auto" : "30%") : "100%",
+            width: isScrolled ? (isSmallScreen ? "auto" : "30%") : "100%",
             borderRadius: isScrolled ? 9999 : 12,
             boxShadow: isScrolled
               ? "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1)"
