@@ -404,7 +404,7 @@ export default function Home() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
               >
-                No pitching, selling or dating. Just show up as you are for a memorable experience with great food and non-transactional conversation.
+                Just show up as you are for a memorable experience with great food and non-transactional conversation.
               </motion.p>
             </div>
           </div>
